@@ -128,5 +128,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    '/RentACoderWEBAPP/static/',
+]
 
-LOGIN_REDIRECT_URL = '/admin/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+LOGIN_REDIRECT_URL = '/portal/'
