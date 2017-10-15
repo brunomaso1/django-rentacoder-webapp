@@ -112,3 +112,6 @@ media/*
 static/
 
 base
+
+.sqlite3
+.sqlite3-journal

@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -25,8 +24,8 @@ SECRET_KEY = 'ro8hyjs)gp&^w-s^myw7hvqvu$b7t7(hn2eu_*-ewf-y97letv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+DOMAIN = "http://127.0.0.0:8000"
 
 # Application definition
 
@@ -37,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'rentacoder_app'
 ]
 
@@ -51,12 +49,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = ['rentacoder_app.auth_backend.UserModelBackend']
+
 ROOT_URLCONF = 'rentacoder_core.urls'
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'rentacoder_app/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -71,7 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rentacoder_core.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -88,7 +88,6 @@ DATABASES = {
         # 'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -108,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -122,17 +120,77 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGGING_FILE_NAME = 'rentacoder.log'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)-15s] %(levelname)-8s [%(funcName)s.%(module)s] %(message)s',
+            'datefmt': '%d/%b/%Y %H:%M:%S'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, LOGGING_FILE_NAME),
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+            'formatter': 'verbose',
+        }
+    },
+    'loggers': {
+        'rentacoder_app': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    }
+}
+# logging.basicConfig(filename='HISTORYlistener.log',level=logging.DEBUG,
+#         format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s', )
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATIC_FOLDER = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_FOLDER)
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    STATIC_ROOT,
     '/RentACoderWEBAPP/static/',
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Specify the custom user model which django is going to use
+AUTH_USER_MODEL = 'rentacoder_app.User'
 
-LOGIN_REDIRECT_URL = '/portal/'
+# Assets configuration
+MEDIA_FOLDER = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_FOLDER)
+MEDIA_URL = '/media/'
+
+# Email manager configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'stmp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'email@email.com'
+EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+# Set login redirect url
+LOGIN_REDIRECT_URL = 'portal'
+# in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
