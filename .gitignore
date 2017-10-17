@@ -109,7 +109,6 @@ media/*
 !media/default
 
 .idea/
-static/
 
 base
 

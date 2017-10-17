@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+{% extends 'views/base.html' %}
 
+{% block title %}Login{% endblock title %}
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/css/login.css"/>
+{% endblock stylesheets %}
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-<body>
+{% block content %}
 <div class="col-md-4 col-md-offset-4 header">
     <p>
         Fill the following form to login:
@@ -37,74 +29,32 @@
     </ul>
     {% endif %}
 </div>
-</body>
-</html>
+{% endblock content %}
 
-<script>
-    function addStyleToForm(){
-        $("form.register_form label").each(function(){
-            var input = $(this);
-            input.addClass('input_label');
-        });
-        $("form.register_form input[type=email]").each(function(){
-            var input = $(this);
-            input.addClass('form-control input_password');
-        });
-        $("form.register_form input[type=text]").each(function(){
-            var input = $(this);
-            input.addClass('form-control input_password');
-        });
-        $("form.register_form input[type=password]").each(function(){
-            var input = $(this);
-            input.addClass('form-control input_password');
-        });
-        $("form.register_form input[type=submit]").each(function(){
-            var input = $(this);
-            input.addClass('btn btn-lg btn-primary btn-block submit_button');
-        });
-    }
-    $( document ).ready(addStyleToForm());
-</script>
-
-<style>
-
-    .input_label {
-        margin-top: 10pt;
-        color: whitesmoke !important;
-    }
-
-    .input_password {
-        margin-top: 10pt;
-    }
-
-    .submit_button {
-        margin-top: 12pt;
-        background-image: linear-gradient(to bottom,#fb5700 0,#fb5700 100%);
-        border-color: #fb5700
-    }
-
-    .form-div {
-        margin-top: 30pt;
-    }
-
-    body {
-       background: #333;
-        font-family: Helvetica Neue,sans-serif;
-    }
-
-    .header {
-        color: whitesmoke;
-        font-size: 20pt;
-        margin-top: 50pt;
-    }
-
-    .message_zone {
-        color: whitesmoke;
-    }
-
-    .message_zone li {
-        padding-top: 12pt;
-        margin-left: 32pt;
-    }
-
-</style>
+{% block javascript_footer %}
+    <script>
+        function addStyleToForm() {
+            $("form.register_form label").each(function () {
+                var input = $(this);
+                input.addClass('input_label');
+            });
+            $("form.register_form input[type=email]").each(function () {
+                var input = $(this);
+                input.addClass('form-control input_password');
+            });
+            $("form.register_form input[type=text]").each(function () {
+                var input = $(this);
+                input.addClass('form-control input_password');
+            });
+            $("form.register_form input[type=password]").each(function () {
+                var input = $(this);
+                input.addClass('form-control input_password');
+            });
+            $("form.register_form input[type=submit]").each(function () {
+                var input = $(this);
+                input.addClass('btn btn-lg btn-primary btn-block submit_button');
+            });
+        }
+        $(document).ready(addStyleToForm());
+    </script>
+{% endblock javascript_footer %}

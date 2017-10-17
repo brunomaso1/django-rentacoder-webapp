@@ -1,0 +1,33 @@
+.input_label {
+    margin-top: 10pt;
+    color: whitesmoke !important;
+}
+
+.input_password {
+    margin-top: 10pt;
+}
+
+.submit_button {
+    margin-top: 12pt;
+    background-image: linear-gradient(to bottom, #fb5700 0, #fb5700 100%);
+    border-color: #fb5700
+}
+
+.form-div {
+    margin-top: 30pt;
+}
+
+.header {
+    color: whitesmoke;
+    font-size: 20pt;
+    margin-top: 50pt;
+}
+
+.message_zone {
+    color: whitesmoke;
+}
+
+.message_zone li {
+    padding-top: 12pt;
+    margin-left: 32pt;
+}
