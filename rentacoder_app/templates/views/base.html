@@ -1,0 +1,37 @@
+{% load staticfiles i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta_tags %}
+        <meta charset="UTF-8">
+    {% endblock %}
+
+    <title>
+        {% block title %}RentACoder{% endblock title %}
+    </title>
+    <link href="/static/img/favicon.ico" rel="icon"/>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/base.css"/>
+    {% endblock stylesheets %}
+
+    {% block javascript_top %}
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% endblock javascript_top %}
+</head>
+
+<body>
+{% block content %}
+
+{% endblock content %}
+</body>
+
+</html>
+
+{% block javascript_footer %}
+
+{% endblock javascript_footer %}
