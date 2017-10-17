@@ -163,12 +163,10 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_FOLDER = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, STATIC_FOLDER)
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    STATIC_ROOT,
+    os.path.join(BASE_DIR, 'static'),
     '/RentACoderWEBAPP/static/',
 ]
 
@@ -182,14 +180,12 @@ MEDIA_URL = '/media/'
 
 # Email manager configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'stmp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'email@email.com'
-EMAIL_HOST_PASSWORD = 'pass'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'no-reply <no-reply@rentacoderwebappucu.com>'
 
 # Set login redirect url
 LOGIN_REDIRECT_URL = 'portal'
