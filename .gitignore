@@ -112,5 +112,5 @@ media/*
 
 base
 
-.sqlite3
+db.sqlite3
 .sqlite3-journal

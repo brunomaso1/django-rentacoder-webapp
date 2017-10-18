@@ -92,20 +92,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -167,7 +167,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    '/RentACoderWEBAPP/static/',
 ]
 
 # Specify the custom user model which django is going to use
@@ -188,5 +187,10 @@ EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'no-reply <no-reply@rentacoderwebappucu.com>'
 
 # Set login redirect url
-LOGIN_REDIRECT_URL = 'portal'
+LOGIN_REDIRECT_URL = '/'
 # in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, 'rentacoder_app/fixtures'),
+)
+
