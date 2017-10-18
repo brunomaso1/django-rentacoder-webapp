@@ -1,4 +1,5 @@
 import logging
+from random import randint
 from uuid import uuid4
 
 from django.conf import settings
@@ -240,6 +241,18 @@ class Project(models.Model):
 
     class Meta:
         db_table = "project"
+
+    @staticmethod
+    def generate(number=1):
+        last_project = Project.objects.last()
+        next_id = (last_project and last_project.pk + 1) or 1
+        for n in range(number):
+            date = timezone.now()
+            Project.objects.create(title="Project %i" %next_id, description=uuid4(),
+                                   user_id=1, openings=randint(1,10),
+                                   start_date=date, end_date=date)
+            next_id += 1
+
 
 # Users can post JobOffers for a Project
 class JobOffer(models.Model):
