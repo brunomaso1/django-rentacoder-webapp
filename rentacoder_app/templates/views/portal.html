@@ -58,7 +58,7 @@
     </nav>
     <div class="container-fluid padding-top-60">
         <div class="row">
-            <div class="col-md-6 padding-top-5">
+            <div class="col-md-12 padding-top-5">
                 <div class="card">
                     <div class="card-header">
                         Projects
@@ -67,25 +67,26 @@
                         <div class="divider" style="margin-top: 1rem;">
                         </div>
                         <div class="articles-container">
-                            <div class="article border-bottom">
+                            {% for project in projects %}
+                                <div class="article border-bottom">
                                 <div class="col-xs-12">
                                     <div class="row">
                                         <div class="col-2 date">
                                             <div class="large">
-                                                30
+                                                {{ project.openings }}
                                             </div>
                                             <div class="text-muted">
-                                                Jun
+                                                jobs
                                             </div>
                                         </div>
                                         <div class="col-10">
                                             <h4>
                                                 <a href="#">
-                                                    Lorem ipsum dolor sit amet
+                                                    {{ project.title }}
                                                 </a>
                                             </h4>
                                             <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
+                                                {{ project.description }}
                                             </p>
                                         </div>
                                     </div>
@@ -94,742 +95,111 @@
                                 </div>
                             </div>
                             <!--End .article-->
-                            <div class="article">
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-2 date">
-                                            <div class="large">
-                                                30
-                                            </div>
-                                            <div class="text-muted">
-                                                Jun
-                                            </div>
-                                        </div>
-                                        <div class="col-10">
-                                            <h4>
-                                                <a href="#">
-                                                    Lorem ipsum dolor sit amet
-                                                </a>
-                                            </h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear">
-                                </div>
-                            </div>
-                            <!--End .article-->
-                            <div class="article">
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-2 date">
-                                            <div class="large">
-                                                30
-                                            </div>
-                                            <div class="text-muted">
-                                                Jun
-                                            </div>
-                                        </div>
-                                        <div class="col-10">
-                                            <h4>
-                                                <a href="#">
-                                                    Lorem ipsum dolor sit amet
-                                                </a>
-                                            </h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear">
-                                </div>
-                            </div>
-                            <!--End .article-->
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card">
-                            <div class="card-header">
-                                Projects
-                            </div>
-                            <div class="card-block">
-                                <div class="divider" style="margin-top: 1rem;">
-                                </div>
-                                <div class="articles-container">
-                                    <div class="article border-bottom">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card">
-                            <div class="card-header">
-                                Projects
-                            </div>
-                            <div class="card-block">
-                                <div class="divider" style="margin-top: 1rem;">
-                                </div>
-                                <div class="articles-container">
-                                    <div class="article border-bottom">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card">
-                            <div class="card-header">
-                                Projects
-                            </div>
-                            <div class="card-block">
-                                <div class="divider" style="margin-top: 1rem;">
-                                </div>
-                                <div class="articles-container">
-                                    <div class="article border-bottom">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card">
-                            <div class="card-header">
-                                Projects
-                            </div>
-                            <div class="card-block">
-                                <div class="divider" style="margin-top: 1rem;">
-                                </div>
-                                <div class="articles-container">
-                                    <div class="article border-bottom">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                    <div class="article">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-2 date">
-                                                    <div class="large">
-                                                        30
-                                                    </div>
-                                                    <div class="text-muted">
-                                                        Jun
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h4>
-                                                        <a href="#">
-                                                            Lorem ipsum dolor sit amet
-                                                        </a>
-                                                    </h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <!--End .article-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card-block">
-                            <h3 class="card-title">
-                                Articles
-                            </h3>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Latest news
-                            </h6>
-                            <div class="divider" style="margin-top: 1rem;">
-                            </div>
-                            <div class="articles-container">
-                                <div class="article border-bottom">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12 col-md-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card-block">
-                            <h3 class="card-title">
-                                Articles
-                            </h3>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Latest news
-                            </h6>
-                            <div class="divider" style="margin-top: 1rem;">
-                            </div>
-                            <div class="articles-container">
-                                <div class="article border-bottom">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12 padding-top-5">
-                        <div class="card-block">
-                            <h3 class="card-title">
-                                Articles
-                            </h3>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Latest news
-                            </h6>
-                            <div class="divider" style="margin-top: 1rem;">
-                            </div>
-                            <div class="articles-container">
-                                <div class="article border-bottom">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                                <div class="article">
-                                    <div class="col-xs-12">
-                                        <div class="row">
-                                            <div class="col-2 date">
-                                                <div class="large">
-                                                    30
-                                                </div>
-                                                <div class="text-muted">
-                                                    Jun
-                                                </div>
-                                            </div>
-                                            <div class="col-10">
-                                                <h4>
-                                                    <a href="#">
-                                                        Lorem ipsum dolor sit amet
-                                                    </a>
-                                                </h4>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear">
-                                    </div>
-                                </div>
-                                <!--End .article-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{#            <div class="col-xs-6 col-md-3">#}
+{#            </div>#}
+{#            <div class="col-xs-6 col-md-6">#}
+{#                <div class="row">#}
+{#                    <div class="col-xs-12 col-md-12 padding-top-5">#}
+{#                        <div class="card-block">#}
+{#                            <h3 class="card-title">#}
+{#                                Articles#}
+{#                            </h3>#}
+{#                            <h6 class="card-subtitle mb-2 text-muted">#}
+{#                                Latest news#}
+{#                            </h6>#}
+{#                            <div class="divider" style="margin-top: 1rem;">#}
+{#                            </div>#}
+{#                            <div class="articles-container">#}
+{#                                <div class="article border-bottom">#}
+{#                                    <div class="col-xs-12">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-2 date">#}
+{#                                                <div class="large">#}
+{#                                                    30#}
+{#                                                </div>#}
+{#                                                <div class="text-muted">#}
+{#                                                    Jun#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-10">#}
+{#                                                <h4>#}
+{#                                                    <a href="#">#}
+{#                                                        Lorem ipsum dolor sit amet#}
+{#                                                    </a>#}
+{#                                                </h4>#}
+{#                                                <p>#}
+{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="clear">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <!--End .article-->#}
+{#                                <div class="article">#}
+{#                                    <div class="col-xs-12">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-2 date">#}
+{#                                                <div class="large">#}
+{#                                                    30#}
+{#                                                </div>#}
+{#                                                <div class="text-muted">#}
+{#                                                    Jun#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-10">#}
+{#                                                <h4>#}
+{#                                                    <a href="#">#}
+{#                                                        Lorem ipsum dolor sit amet#}
+{#                                                    </a>#}
+{#                                                </h4>#}
+{#                                                <p>#}
+{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="clear">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <!--End .article-->#}
+{#                                <div class="article">#}
+{#                                    <div class="col-xs-12 col-md-12">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-2 date">#}
+{#                                                <div class="large">#}
+{#                                                    30#}
+{#                                                </div>#}
+{#                                                <div class="text-muted">#}
+{#                                                    Jun#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-10">#}
+{#                                                <h4>#}
+{#                                                    <a href="#">#}
+{#                                                        Lorem ipsum dolor sit amet#}
+{#                                                    </a>#}
+{#                                                </h4>#}
+{#                                                <p>#}
+{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
+{#                                                </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="clear">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <!--End .article-->#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     </div>

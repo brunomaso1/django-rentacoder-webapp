@@ -10,7 +10,7 @@ from django.urls import reverse
 
 from rentacoder_app.forms.register import RegisterForm
 from .forms.reset_password import ResetPasswordForm
-from .models import User
+from .models import User, Project
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
 
@@ -21,8 +21,10 @@ POST = 'POST'
 
 
 def portal(request):
-    template = loader.get_template('views/portal.html')
-    return HttpResponse(template.render())
+    context = {
+        "projects": Project.objects.all()
+    }
+    return render(request, 'views/portal.html', context)
 
 
 def register(request):
