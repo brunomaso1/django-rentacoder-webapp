@@ -229,6 +229,7 @@ class Token(models.Model):
 
 # A Project is created by a User and can offer one or more job openings
 class Project(models.Model):
+    title = models.TextField()
     description = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     technologies = models.ManyToManyField('Technology')
