@@ -57,7 +57,7 @@ ROOT_URLCONF = 'rentacoder_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'rentacoder_app/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'rentacoder_app/../../rentacoder_app/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -79,13 +79,7 @@ WSGI_APPLICATION = 'rentacoder_core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'magarena_backend',
-        # 'USER': 'root',
-        # 'PASSWORD': 'root',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
+        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3')
     }
 }
 
@@ -166,7 +160,7 @@ LOGGING = {
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '../../static'),
 ]
 
 # Specify the custom user model which django is going to use
@@ -187,10 +181,11 @@ EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'no-reply <no-reply@rentacoderwebappucu.com>'
 
 # Set login redirect url
+LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 # in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
 
 FIXTURE_DIRS = (
-    os.path.join(BASE_DIR, 'rentacoder_app/fixtures'),
+    os.path.join(BASE_DIR, 'rentacoder_app/../../rentacoder_app/fixtures'),
 )
 
