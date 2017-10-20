@@ -1,0 +1,9 @@
+#titles
+{
+ text-align: center;
+}
+
+#titles div, #titles p
+{
+    display: inline-block;
+}

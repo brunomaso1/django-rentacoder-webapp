@@ -16,7 +16,76 @@
 <div class="container padding-top-60">
     <div class="row">
         <div class="col-md-6 padding-top-5">
-            <div class="panel">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5><span class="fa fa-book"></span> Projects</h5>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fa fa-globe"> Country</i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Uruguay</a></li>
+                                        <li><a href="#">Brazil</a></li>
+                                        <li><a href="#">Argentina</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fa fa-cog"> Category</i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Software</a></li>
+                                        <li><a href="#">Hardware</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% for project in projects%}
+                    <div class="row">
+                        <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                        </div>
+                        <div class="col-xs-4">
+                            <h4 class="product-name"><strong>{{project.title}}</strong></h4>
+                            <div id="titles">
+                                <div class="btn btn-group">
+                                    <button class="btn btn-primary"><i class="fa fa-check-circle-o"
+                                                                       aria-hidden="true"></i></button>
+                                    <button class="btn btn-secondary"><i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <h5>Category</h5>
+                                <h5>Country</h5>
+                                <h5>Technology</h5>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>{{project.description}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                    <div class="row text-center">
+                        <div class="col-xs-9">
+                            <h4 class="text-right">Paginado</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xs-6 col-md-3">
