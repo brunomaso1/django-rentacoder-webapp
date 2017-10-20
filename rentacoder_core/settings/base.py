@@ -160,7 +160,7 @@ LOGGING = {
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../../static'),
+    os.path.join(BASE_DIR, '../static'),
 ]
 
 # Specify the custom user model which django is going to use

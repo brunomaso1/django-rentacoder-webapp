@@ -1,201 +1,70 @@
 {% extends 'views/base.html' %}
 
 {% block meta_tags %}
-    {{ block.super }}
+{{ block.super }}
 {% endblock meta_tags %}
 
 {% block title %}RentACoder{% endblock title %}
 
 {% block stylesheets %}
-    {{ block.super }}
-    <!-- Custom styles for this template -->
-    <link href="/static/css/portal.css" rel="stylesheet"/>
+{{ block.super }}
+<!-- Custom styles for this template -->
+<!--<link href="/static/css/portal.css" rel="stylesheet"/>-->
 {% endblock stylesheets %}
 
 {% block content %}
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            Navbar
-        </a>
-        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon">
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        Home
-                        <span class="sr-only">
-                            (current)
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Link
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">
-                        Disabled
-                    </a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search" type="text">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        Search
-                    </button>
-                </input>
-            </form>
+<div class="container padding-top-60">
+    <div class="row">
+        <div class="col-md-6 padding-top-5">
+            <div class="panel">
+            </div>
         </div>
-    </nav>
-    <div class="container-fluid padding-top-60">
-        <div class="row">
-            <div class="col-md-12 padding-top-5">
-                <div class="card">
-                    <div class="card-header">
-                        Projects
-                    </div>
-                    <div class="card-block">
-                        <div class="divider" style="margin-top: 1rem;">
-                        </div>
-                        <div class="articles-container">
-                            {% for project in projects %}
-                                <div class="article border-bottom">
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-2 date">
-                                            <div class="large">
-                                                {{ project.openings }}
-                                            </div>
-                                            <div class="text-muted">
-                                                jobs
-                                            </div>
-                                        </div>
-                                        <div class="col-10">
-                                            <h4>
-                                                <a href="#">
-                                                    {{ project.title }}
-                                                </a>
-                                            </h4>
-                                            <p>
-                                                {{ project.description }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear">
-                                </div>
-                            </div>
-                            <!--End .article-->
-                            {% endfor %}
-                        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
                     </div>
                 </div>
             </div>
-{#            <div class="col-xs-6 col-md-3">#}
-{#            </div>#}
-{#            <div class="col-xs-6 col-md-6">#}
-{#                <div class="row">#}
-{#                    <div class="col-xs-12 col-md-12 padding-top-5">#}
-{#                        <div class="card-block">#}
-{#                            <h3 class="card-title">#}
-{#                                Articles#}
-{#                            </h3>#}
-{#                            <h6 class="card-subtitle mb-2 text-muted">#}
-{#                                Latest news#}
-{#                            </h6>#}
-{#                            <div class="divider" style="margin-top: 1rem;">#}
-{#                            </div>#}
-{#                            <div class="articles-container">#}
-{#                                <div class="article border-bottom">#}
-{#                                    <div class="col-xs-12">#}
-{#                                        <div class="row">#}
-{#                                            <div class="col-2 date">#}
-{#                                                <div class="large">#}
-{#                                                    30#}
-{#                                                </div>#}
-{#                                                <div class="text-muted">#}
-{#                                                    Jun#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                            <div class="col-10">#}
-{#                                                <h4>#}
-{#                                                    <a href="#">#}
-{#                                                        Lorem ipsum dolor sit amet#}
-{#                                                    </a>#}
-{#                                                </h4>#}
-{#                                                <p>#}
-{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
-{#                                                </p>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <div class="clear">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <!--End .article-->#}
-{#                                <div class="article">#}
-{#                                    <div class="col-xs-12">#}
-{#                                        <div class="row">#}
-{#                                            <div class="col-2 date">#}
-{#                                                <div class="large">#}
-{#                                                    30#}
-{#                                                </div>#}
-{#                                                <div class="text-muted">#}
-{#                                                    Jun#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                            <div class="col-10">#}
-{#                                                <h4>#}
-{#                                                    <a href="#">#}
-{#                                                        Lorem ipsum dolor sit amet#}
-{#                                                    </a>#}
-{#                                                </h4>#}
-{#                                                <p>#}
-{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
-{#                                                </p>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <div class="clear">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <!--End .article-->#}
-{#                                <div class="article">#}
-{#                                    <div class="col-xs-12 col-md-12">#}
-{#                                        <div class="row">#}
-{#                                            <div class="col-2 date">#}
-{#                                                <div class="large">#}
-{#                                                    30#}
-{#                                                </div>#}
-{#                                                <div class="text-muted">#}
-{#                                                    Jun#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                            <div class="col-10">#}
-{#                                                <h4>#}
-{#                                                    <a href="#">#}
-{#                                                        Lorem ipsum dolor sit amet#}
-{#                                                    </a>#}
-{#                                                </h4>#}
-{#                                                <p>#}
-{#                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.#}
-{#                                                </p>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <div class="clear">#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <!--End .article-->#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}
