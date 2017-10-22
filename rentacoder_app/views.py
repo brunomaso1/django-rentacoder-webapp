@@ -35,24 +35,22 @@ def new_project(request):
     elif request.method == POST:
         # create form from request POST params
         form = NewProjectForm(request.POST)
+
         # check if the form is valid
         if form.is_valid():
             # try to create the project
             log.info("Creating project by user {}".format(request.user))
             technologies = form.cleaned_data.pop('technologies')
             form.user_id = request.user.pk
-            project, errors = form.save()
-            if project:
-                for tech_name in technologies:
-                    technology = Technology.objects.get(name=tech_name)
-                    project.add(technology)
+            project = form.save(commit=False)
+            project.user_id = request.user.pk
+            project.save()
 
-                # render success
-                return redirect(reverse('project', kwargs={"id": project.pk}))
-            else:
-                # show errors and redirect to register form
-                for error in errors:
-                    messages.error(request, error.text)
+            for tech_name in technologies:
+                technology = Technology.objects.get(name=tech_name)
+                project.technologies.add(technology)
+
+            return redirect(reverse('project', kwargs={"pk": project.pk}))
         else:
             # show errors and redirect to form
             messages.error(request, 'Invalid form data')
@@ -65,7 +63,6 @@ def project(request, pk):
         "project": Project.objects.get(pk=int(pk))
     }
     return render(request, 'views/project.html', context)
-
 
 
 def register(request):

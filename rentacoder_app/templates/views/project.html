@@ -1,4 +1,12 @@
-{{ project.id }}<br>
-{{ project.title }}<br>
-{{ project.description }}<br>
-{{ project.openings }}<br>
+{% extends 'views/base.html' %}
+
+{% block title %}Project {{ project.title }}{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        {{ project.id }}<br>
+        {{ project.title }}<br>
+        {{ project.description }}<br>
+        {{ project.openings }}<br>
+    </div>
+{% endblock %}

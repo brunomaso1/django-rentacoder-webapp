@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'reset_password/(?P<token>[0-9a-f-]+)/$', views.reset_password, name='reset_password_get'),
 
     url(r'^$', views.portal, name='portal'),
-    url(r'^new_project/$', views.new_project, name='new_project'),
-    url(r'^project/(?P<pk>[0-9]+)/$', views.project, name='project'),
+    url(r'^projects/new/$', views.new_project, name='new_project'),
+    url(r'^projects/(?P<pk>[0-9]+)/$', views.project, name='project'),
 ]

@@ -3,14 +3,17 @@ from rentacoder_app.models import Project
 
 
 class NewProjectForm(forms.ModelForm):
+    start_date = forms.DateField(widget=forms.SelectDateWidget())
+    end_date = forms.DateField(widget=forms.SelectDateWidget())
+
     class Meta:
         model = Project
-        fields = ['title', 'description', 'technologies', 'openings', 'start_date', 'end_date']
+        exclude = ('user',)
 
 
 class RegisterForm(forms.Form):
     """
-    Form used to reset password
+    Form used to register a new user
     """
     first_name = forms.CharField(max_length=40, required=True, label="First name")
     last_name = forms.CharField(max_length=40, required=True, label="Last name")
@@ -22,7 +25,6 @@ class RegisterForm(forms.Form):
     def is_valid(self):
         valid = super(RegisterForm, self).is_valid()
         return valid and self.cleaned_data.get('password') == self.cleaned_data.get('password_confirmation')
-
 
 
 class ResetPasswordForm(forms.Form):
