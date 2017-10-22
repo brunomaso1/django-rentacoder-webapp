@@ -38,6 +38,7 @@
 </head>
 
 <body>
+{% block header %}
 <nav class="navbar navbar-default navbar-fixed-top navbar-expand-xs" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -107,7 +108,11 @@
         </div>
     </div>
 </nav>
-{% block content %}{% endblock content %}
+{% endblock header %}
+
+{% block content %}
+
+{% endblock content %}
 </body>
 
 </html>
