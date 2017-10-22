@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 
@@ -7,10 +8,12 @@ from django.contrib import messages
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.generic import TemplateView
 
+from rentacoder_app.forms.new_project import NewProjectForm
 from rentacoder_app.forms.register import RegisterForm
 from .forms.reset_password import ResetPasswordForm
-from .models import User, Project
+from .models import User, Project, Technology
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
 
@@ -20,11 +23,52 @@ GET = 'GET'
 POST = 'POST'
 
 
+@login_required
 def portal(request):
     context = {
         "projects": Project.objects.all()
     }
     return render(request, 'views/portal.html', context)
+
+@login_required
+def new_project(request):
+    log.info(request.user)
+    if request.method == GET:
+        return render(request, 'views/new_project.html', {'form': NewProjectForm()})
+    elif request.method == POST:
+        # create form from request POST params
+        form = NewProjectForm(request.POST)
+        # check if the form is valid
+        if form.is_valid():
+            # try to create the project
+            log.info("Creating project by user {}".format(request.user))
+            technologies = form.cleaned_data.pop('technologies')
+            form.user_id = request.user.pk
+            project, errors = form.save()
+            if project:
+                for tech_name in technologies:
+                    technology = Technology.objects.get(name=tech_name)
+                    project.add(technology)
+
+                # render success
+                return redirect(reverse('project', kwargs={"id": project.pk}))
+            else:
+                # show errors and redirect to register form
+                for error in errors:
+                    messages.error(request, error.text)
+        else:
+            # show errors and redirect to form
+            messages.error(request, 'Invalid form data')
+
+        return HttpResponse('')
+
+@login_required
+def project(request, pk):
+    context = {
+        "project": Project.objects.get(pk=int(pk))
+    }
+    return render(request, 'views/project.html', context)
+
 
 
 def register(request):
@@ -107,3 +151,5 @@ def validate_email(request, token):
         return render(request, template, {'title': 'Success!', 'message': msg})
     else:
         return render(request, template, {'title': 'Ops!, error:', 'message': error.text})
+
+
