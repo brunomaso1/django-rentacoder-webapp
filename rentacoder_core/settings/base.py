@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'rentacoder_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'rentacoder_app/../../rentacoder_app/templates')]
+        'DIRS': [os.path.join(BASE_DIR, '/rentacoder_app/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'rentacoder_core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3')
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
@@ -160,7 +160,7 @@ LOGGING = {
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Specify the custom user model which django is going to use
@@ -186,6 +186,6 @@ LOGIN_REDIRECT_URL = '/'
 # in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
 
 FIXTURE_DIRS = (
-    os.path.join(BASE_DIR, 'rentacoder_app/../../rentacoder_app/fixtures'),
+    os.path.join(BASE_DIR, 'rentacoder_app/fixtures'),
 )
 

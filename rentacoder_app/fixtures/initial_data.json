@@ -1,18 +1,102 @@
 [
   {
+    "model": "rentacoder_app.technology",
+    "pk": 1,
+    "fields": {
+      "name": "Python"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 2,
+    "fields": {
+      "name": "C#"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 3,
+    "fields": {
+      "name": "Java"
+    }
+  },
+  {
     "model": "rentacoder_app.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$36000$ZiMrf4cSRdNp$jahQBQfcw3c94aOhmctplTdeI80UPvsI9pUlYxFyNrE=",
+      "password": "pbkdf2_sha256$36000$pFNNdT4PUCqD$OzWqry3ZglkdFT/jwU2zXEz21cvfYorzfRwoiaN7KOQ=",
       "last_login": null,
       "is_superuser": true,
       "username": "noya",
       "first_name": "",
       "last_name": "",
       "is_staff": true,
-      "date_joined": "2017-10-17T22:43:01.840Z",
+      "date_joined": "2017-10-22T18:42:15.789Z",
       "name": "",
       "email": "martinnoya@gmail.com",
+      "is_active": true,
+      "deleted": false,
+      "groups": [],
+      "user_permissions": [],
+      "technologies": []
+    }
+  },
+  {
+    "model": "rentacoder_app.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$QUfKoAvLAVWf$yKBEu1sEHb7i7pqUcItEe30+STO324ZNgjVeJeEAyj4=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "masoller",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "date_joined": "2017-10-22T18:42:44.730Z",
+      "name": "",
+      "email": "brunomaso1@gmail.com",
+      "is_active": true,
+      "deleted": false,
+      "groups": [],
+      "user_permissions": [],
+      "technologies": []
+    }
+  },
+  {
+    "model": "rentacoder_app.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$Bnyj4lB4nShL$Gk4RcYLgQG6jiM9cpm+7nHxOuXewNStAJ2nvUDBb8G4=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "olivera",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "date_joined": "2017-10-22T18:44:03.096Z",
+      "name": "",
+      "email": "guz.olivera@gmail.com",
+      "is_active": true,
+      "deleted": false,
+      "groups": [],
+      "user_permissions": [],
+      "technologies": []
+    }
+  },
+  {
+    "model": "rentacoder_app.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$z1qZRLScv5Zq$vfatj4EaepXWOmPm5R8utZ2QtpLIh+YEp+jad6ZsgPs=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "rose",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "date_joined": "2017-10-22T18:44:24.097Z",
+      "name": "",
+      "email": "martin.g.rose.t@gmail.com",
       "is_active": true,
       "deleted": false,
       "groups": [],
