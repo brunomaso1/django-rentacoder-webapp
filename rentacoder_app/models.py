@@ -21,6 +21,9 @@ class Technology(models.Model):
     class Meta:
         db_table = "technology"
 
+    def __str__(self):
+        return self.name
+
 
 # A User can publish Projects and create JobOffers in Projects
 class User(AbstractUser):

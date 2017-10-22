@@ -8,11 +8,8 @@ from django.contrib import messages
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import TemplateView
 
-from rentacoder_app.forms.new_project import NewProjectForm
-from rentacoder_app.forms.register import RegisterForm
-from .forms.reset_password import ResetPasswordForm
+from .forms import ResetPasswordForm, RegisterForm, NewProjectForm
 from .models import User, Project, Technology
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
