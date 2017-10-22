@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'rentacoder_app.auth_backend.processor'
             ],
         },
     },
@@ -184,6 +185,7 @@ DEFAULT_FROM_EMAIL = 'no-reply <no-reply@rentacoderwebappucu.com>'
 # Set login redirect url
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 # in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
 
 FIXTURE_DIRS = (

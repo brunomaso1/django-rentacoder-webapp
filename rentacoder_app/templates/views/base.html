@@ -60,15 +60,12 @@
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </div>
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'login' %}">Already have an account? Login!</a></li>
-                <li><a href="{% url 'register' %}">Or Sign Up now!</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
+            {% if authenticated %}
+                <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="glyphicon glyphicon-user"></i> 
-                        <strong>Name</strong>
+                        <strong>{{ username }}</strong>
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -81,8 +78,8 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-left"><strong>Name Lastname</strong></p>
-                                        <p class="text-left small">nlastname@email.com</p>
+                                        <p class="text-left"><strong>{{ username }}</strong></p>
+                                        <p class="text-left small">{{ email }}</p>
                                         <p class="text-left">
                                             <a href="#" class="btn btn-primary btn-block btn-sm">Update</a>
                                         </p>
@@ -96,7 +93,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <p>
-                                            <a href="#" class="btn btn-danger btn-block">Sign out</a>
+                                            <a href={% url 'logout' %} class="btn btn-danger btn-block">Sign out</a>
                                         </p>
                                     </div>
                                 </div>
@@ -105,6 +102,12 @@
                     </ul>
                 </li>
             </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}">Already have an account? Login!</a></li>
+                    <li><a href="{% url 'register' %}">Or Sign Up now!</a></li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 </nav>
