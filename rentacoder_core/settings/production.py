@@ -1,6 +1,6 @@
 from .base import *
 
-DOMAIN = "LA_IP_EN_AMAZON_O_ALGO"
+DOMAIN = "34.212.201.181"
 ALLOWED_HOSTS = [DOMAIN]
 
 DATABASES = {
