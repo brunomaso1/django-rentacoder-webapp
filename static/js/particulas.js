@@ -1,8 +1,8 @@
 /**
  * Esta funcion activa los puntos en la pantalla.
  */
-function activateParticles(){
-    Particles.init('particles-js', {
+$.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function() {
+    particlesJS('particles-js', {
         "particles": {
             "number": {
                 "value": 80,
@@ -117,6 +117,4 @@ function activateParticles(){
             "background_size": "cover"
         }
     });
-}
-
-$(document).ready(activateParticles());
+});

@@ -55,13 +55,12 @@
             </div>
         </div>
     </div>
+    <div id="particles-js"></div>
 </div>
-<div id="particles-js"></div>
 {% endblock content %}
 
 {% block javascript_footer %}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.0.2/particles.min.js" integrity="sha256-9bEGN04paFu+IRPKNZFYB34PJ6xHxJZX4uXQAgKAdrQ=" crossorigin="anonymous"></script>
+{{ block.super}}
 <script src="/static/js/particulas.js"></script>
 <script>
         function addStyleToForm() {
