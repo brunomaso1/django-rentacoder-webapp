@@ -9,7 +9,7 @@ DATABASES = {
         'NAME': 'rentacoder',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'LA_URL_EN_AMAZON_O_ALGO',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
