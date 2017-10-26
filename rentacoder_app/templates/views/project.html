@@ -8,5 +8,10 @@
         {{ project.title }}<br>
         {{ project.description }}<br>
         {{ project.openings }}<br>
+        <form action="{% url 'apply' project.id %}">
+            <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                Apply for this Project
+            </button>
+        </form>
     </div>
 {% endblock %}
