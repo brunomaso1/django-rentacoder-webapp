@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .forms import ResetPasswordForm, RegisterForm, NewProjectForm
+from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm
 from .models import User, Project, Technology
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
@@ -52,7 +52,7 @@ def new_project(request):
 
             return redirect(reverse('project', kwargs={"pk": project.pk}))
         else:
-            # show errors and redirect to form
+            log.error("Invalid form data: {}".format(form.errors))
             messages.error(request, 'Invalid form data')
 
         return HttpResponse('')
@@ -63,6 +63,35 @@ def project(request, pk):
         "project": Project.objects.get(pk=int(pk))
     }
     return render(request, 'views/project.html', context)
+
+
+@login_required
+def apply_to_project(request, pk):
+    if request.method == GET:
+        form = ApplyToProjectForm()
+        context = {
+            "form": form,
+            "project": Project.objects.get(pk=int(pk))
+        }
+        return render(request, 'views/apply_to_project.html', context)
+    else:
+        log.info("Attempting to create JobOffer for project {} by user {} - Request: {}".
+                 format(pk, request.user, request.POST))
+        form = ApplyToProjectForm(request.POST)
+        if form.is_valid():
+            form.user_id = request.user.pk
+            form.project_id = pk
+            job_offer = form.save(commit=False)
+            job_offer.user_id = request.user.pk
+            job_offer.project_id = pk
+            job_offer.save()
+
+            return redirect(reverse('project', kwargs={"pk": pk}))
+        else:
+            log.error("Invalid form data: {}".format(form.errors.as_json()))
+            messages.error(request, 'Invalid form data')
+
+            return redirect(reverse('apply'))
 
 
 def register(request):
@@ -145,5 +174,3 @@ def validate_email(request, token):
         return render(request, template, {'title': 'Success!', 'message': msg})
     else:
         return render(request, template, {'title': 'Ops!, error:', 'message': error.text})
-
-

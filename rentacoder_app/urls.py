@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^$', views.portal, name='portal'),
     url(r'^projects/new/$', views.new_project, name='new_project'),
     url(r'^projects/(?P<pk>[0-9]+)/$', views.project, name='project'),
+    url(r'^projects/(?P<pk>[0-9]+)/apply$', views.apply_to_project, name='apply')
 ]
