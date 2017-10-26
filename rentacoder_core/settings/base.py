@@ -188,7 +188,4 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 # in order to change the logout redirect, add a dicc with the att next and the url to redirect in the logout url
 
-FIXTURE_DIRS = (
-    os.path.join(BASE_DIR, 'rentacoder_app/fixtures'),
-)
 

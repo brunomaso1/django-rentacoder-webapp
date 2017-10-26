@@ -1,9 +1,11 @@
 body {
-    background: url("../img/background.jpg") no-repeat center center fixed;
+    /*background: url("../img/background_3.jpg") no-repeat center center fixed;*/
+    background:#b3d7ff;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
     font-family: Helvetica Neue, sans-serif;
 
     /*The fixed navbar will overlay your other content, unless you add padding to the top of the body.*/
