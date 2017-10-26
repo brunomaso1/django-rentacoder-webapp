@@ -109,6 +109,7 @@ media/*
 !media/default
 
 .idea/
+.xml
 
 base
 
