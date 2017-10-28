@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.template import loader
 
 import logging
 
 from django.contrib import messages
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm
@@ -63,6 +63,31 @@ def project(request, pk):
         "project": Project.objects.get(pk=int(pk))
     }
     return render(request, 'views/project.html', context)
+
+
+@login_required
+def edit_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if project.user != request.user:
+        return HttpResponseForbidden()
+
+    form = NewProjectForm(request.POST or None, instance=project)
+    if request.method == GET:
+        context = {
+            "form": form,
+            "project": Project.objects.get(pk=int(pk))
+        }
+        return render(request, 'views/edit_project.html', context)
+    else:
+        if form.is_valid():
+            form.save()
+            redirect_url = reverse('project', kwargs={"pk": pk})
+            return redirect(redirect_url)
+        else:
+            log.error("Invalid form data: {}".format(form.errors.as_json()))
+            messages.error(request, 'Invalid form data')
+
+    return render(request, 'views/edit_project.html', {'form': form})
 
 
 @login_required
