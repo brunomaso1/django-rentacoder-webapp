@@ -77,8 +77,10 @@ def new_project(request):
 
 @login_required
 def project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
     context = {
-        "project": Project.objects.get(pk=int(pk))
+        "project": project,
+        "job_offers": project.joboffer_set.all()
     }
     return render(request, 'views/project.html', context)
 

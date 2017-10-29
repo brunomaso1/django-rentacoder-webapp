@@ -9,6 +9,14 @@
         {{ project.description }}<br>
         {{ project.openings }}<br>
 
+        {% if job_offers %}
+            Applicants:<br>
+            {% for offer in job_offers %}
+                {{ offer.user }}<br>
+            {% endfor %}
+        {% endif %}
+
+
         {# TODO: Only show Edit if you are the owner #}
         <form action="{% url 'edit' project.id %}">
             <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
