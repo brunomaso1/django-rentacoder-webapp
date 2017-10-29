@@ -24,10 +24,14 @@
             </button>
         </form>
 
-        <form action="{% url 'apply' project.id %}">
-            <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                Apply for this Project
-            </button>
-        </form>
+        {% if already_applied %}
+            <span class="label label-success">Already applied for this Project</span>
+        {% else %}
+            <form action="{% url 'apply' project.id %}">
+                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                    Apply for this Project
+                </button>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}

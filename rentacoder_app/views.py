@@ -78,9 +78,11 @@ def new_project(request):
 @login_required
 def project(request, pk):
     project = get_object_or_404(Project, pk=pk)
+    job_offers = project.joboffer_set.all()
     context = {
         "project": project,
-        "job_offers": project.joboffer_set.all()
+        "job_offers": job_offers,
+        "already_applied": job_offers.filter(user=request.user).exists(),
     }
     return render(request, 'views/project.html', context)
 
