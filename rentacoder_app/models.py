@@ -27,14 +27,15 @@ class Technology(models.Model):
 
 # A User can publish Projects and create JobOffers in Projects
 class User(AbstractUser):
-    name = models.CharField(max_length=100)
+    """
+    Attributes of Base User:
+        first_name
+        last_name
+        username
+        password
+    """
     technologies = models.ManyToManyField('Technology')
-
-    # avatar = models.ImageField(upload_to='avatars', default=const.DEFAULT_PROFILE_IMAGE_USER)
-    # avatar_thumbnail = ImageSpecField(source='avatar',
-    #                                   processors=[ResizeToFill(100, 50)],
-    #                                   format='JPEG',
-    #                                   options={'quality': 60})
+    avatar = models.ImageField(upload_to='avatars', default=const.DEFAULT_PROFILE_IMAGE_USER)
     email = models.EmailField(unique=True, db_index=True)
     is_active = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
@@ -211,7 +212,6 @@ class User(AbstractUser):
         return updated, errors
 
 
-
 class Token(models.Model):
     """
     Used to validate account
@@ -251,8 +251,8 @@ class Project(models.Model):
         next_id = (last_project and last_project.pk + 1) or 1
         for n in range(number):
             date = timezone.now()
-            Project.objects.create(title="Project %i" %next_id, description=uuid4(),
-                                   user_id=1, openings=randint(1,10),
+            Project.objects.create(title="Project %i" % next_id, description=uuid4(),
+                                   user_id=1, openings=randint(1, 10),
                                    start_date=date, end_date=date)
             next_id += 1
 
@@ -282,4 +282,3 @@ class EmailToken(Token):
     """
     email = models.EmailField()
     user = models.OneToOneField(to='User', unique=True, editable=False, related_name='email_token')
-

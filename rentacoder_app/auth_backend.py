@@ -11,8 +11,7 @@ def processor(request):
     if request.user.is_authenticated():
         return {
             'authenticated': True,
-            'username': request.user.username,
-            'email': request.user.email,
+            'user': request.user
         }
     else:
         return {

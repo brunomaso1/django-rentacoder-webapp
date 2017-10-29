@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 
@@ -18,4 +20,4 @@ urlpatterns = [
     url(r'^projects/(?P<pk>[0-9]+)/$', views.project, name='project'),
     url(r'^projects/(?P<pk>[0-9]+)/apply/$', views.apply_to_project, name='apply'),
     url(r'^projects/(?P<pk>[0-9]+)/edit/$', views.edit_project, name='edit')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
