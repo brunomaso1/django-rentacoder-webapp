@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm
+from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm, UserProfileForm
 from .models import User, Project, Technology
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
@@ -26,6 +26,23 @@ def portal(request):
         "projects": Project.objects.all()
     }
     return render(request, 'views/portal.html', context)
+
+
+@login_required
+def profile(request):
+    form = UserProfileForm(request.POST or None, instance=request.user)
+    if request.method == GET:
+        return render(request, 'views/profile.html', {'form': form})
+    elif request.method == POST:
+        if form.is_valid():
+            log.info("Updating user {}".format(request.user.username))
+            form.save()
+            return redirect(reverse('profile'))
+        else:
+            log.error("Invalid form data: {}".format(form.errors.as_json()))
+            messages.error(request, 'Invalid form data')
+
+    return render(request, 'views/edit_project.html', {'form': form})
 
 @login_required
 def new_project(request):
@@ -57,6 +74,7 @@ def new_project(request):
 
         return HttpResponse('')
 
+
 @login_required
 def project(request, pk):
     context = {
@@ -81,8 +99,7 @@ def edit_project(request, pk):
     else:
         if form.is_valid():
             form.save()
-            redirect_url = reverse('project', kwargs={"pk": pk})
-            return redirect(redirect_url)
+            return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')

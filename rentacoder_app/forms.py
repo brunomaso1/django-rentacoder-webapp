@@ -1,5 +1,5 @@
 from django import forms
-from rentacoder_app.models import Project, JobOffer
+from rentacoder_app.models import Project, JobOffer, User
 
 
 class NewProjectForm(forms.ModelForm):
@@ -17,6 +17,12 @@ class ApplyToProjectForm(forms.ModelForm):
         model = JobOffer
         exclude = ('user', 'project')
 
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'technologies')
 
 class RegisterForm(forms.Form):
     """
