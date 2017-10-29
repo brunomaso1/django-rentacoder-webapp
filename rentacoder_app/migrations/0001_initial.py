@@ -88,6 +88,16 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='ProjectQuestion',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('question', models.TextField()),
+                ('answer', models.TextField()),
+                ('proect', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rentacoder_app.Project')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
             name='ResetPasswordToken',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

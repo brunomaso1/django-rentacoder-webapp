@@ -269,6 +269,13 @@ class JobOffer(models.Model):
         db_table = "job_offer"
 
 
+class ProjectQuestion(models.Model):
+    proect = models.ForeignKey('Project')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    question = models.TextField()
+    answer = models.TextField()
+
+
 class ResetPasswordToken(Token):
     """
     Used to reset password
