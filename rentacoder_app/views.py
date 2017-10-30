@@ -30,7 +30,7 @@ def portal(request):
 
 @login_required
 def profile(request):
-    form = UserProfileForm(request.POST or None, instance=request.user)
+    form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user)
     if request.method == GET:
         return render(request, 'views/profile.html', {'form': form})
     elif request.method == POST:
