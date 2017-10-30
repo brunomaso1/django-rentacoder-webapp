@@ -30,6 +30,14 @@ def portal(request):
 
 
 @login_required
+def my_projects(request):
+    context = {
+        "projects": Project.objects.filter(user=request.user)
+    }
+    return render(request, 'views/portal.html', context)
+
+
+@login_required
 def profile(request):
     form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user)
     if request.method == GET:
@@ -44,6 +52,7 @@ def profile(request):
             messages.error(request, 'Invalid form data')
 
     return render(request, 'views/edit_project.html', {'form': form})
+
 
 @login_required
 def new_project(request):
@@ -84,7 +93,7 @@ def project(request, pk):
         "project": project,
         "job_offers": job_offers,
         "own_project": request.user == project.user,
-        "questions": project.projectquestion_set.all(),     # TODO: Private questions, private answers
+        "questions": project.projectquestion_set.all(),  # TODO: Private questions, private answers
         "question_form": ProjectQuestionForm(),
         "answer_form": AnswerQuestionForm(),
         "already_applied": job_offers.filter(user=request.user).exists(),
@@ -180,7 +189,6 @@ def answer_question(request, pk, question_id):
             return redirect(reverse('project'), kwargs={"pk": pk})
 
 
-
 def register(request):
     """
     View used to register a new user
@@ -261,4 +269,3 @@ def validate_email(request, token):
         return render(request, template, {'title': 'Success!', 'message': msg})
     else:
         return render(request, template, {'title': 'Ops!, error:', 'message': error.text})
-
