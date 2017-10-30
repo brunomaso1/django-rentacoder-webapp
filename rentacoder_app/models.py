@@ -270,7 +270,7 @@ class JobOffer(models.Model):
 
 
 class ProjectQuestion(models.Model):
-    proect = models.ForeignKey('Project')
+    project = models.ForeignKey('Project')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.TextField()
     answer = models.TextField()
