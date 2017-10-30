@@ -16,13 +16,39 @@
             {% endfor %}
         {% endif %}
 
+        {% if own_project %}
+            <form action="{% url 'edit' project.id %}">
+                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                    Edit
+                </button>
+            </form>
+            {#        {% else %}#}
+            <h4>Leave a Question</h4>
+            <form action="{% url 'send_question' project.id %}" method="POST">
+                {% csrf_token %}
+                {{ question_form.question }}
+                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                    Send
+                </button>
+            </form>
+        {% endif %}
 
-        {# TODO: Only show Edit if you are the owner #}
-        <form action="{% url 'edit' project.id %}">
-            <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                Edit
-            </button>
-        </form>
+        {% for question in questions %}
+            <h2>{{ question.question }}</h2>
+            {% if own_project %}
+                {% if not question.answer %}
+                    <form action="{% url 'answer_question' project.id question.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ answer_form.answer }}
+                        <button type="submit" class="btn submit_button">
+                            Send
+                        </button>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
+        {% endfor %}
+
 
         {% if already_applied %}
             <span class="label label-success">Already applied for this Project</span>

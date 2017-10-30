@@ -19,5 +19,9 @@ urlpatterns = [
     url(r'^projects/new/$', views.new_project, name='new_project'),
     url(r'^projects/(?P<pk>[0-9]+)/$', views.project, name='project'),
     url(r'^projects/(?P<pk>[0-9]+)/apply/$', views.apply_to_project, name='apply'),
-    url(r'^projects/(?P<pk>[0-9]+)/edit/$', views.edit_project, name='edit')
+    url(r'^projects/(?P<pk>[0-9]+)/edit/$', views.edit_project, name='edit'),
+    url(r'^projects/(?P<pk>[0-9]+)/questions/$', views.send_question, name='send_question'),
+    url(r'^projects/(?P<pk>[0-9]+)/questions/(?P<question_id>[0-9]+)$', views.answer_question, name='answer_question')
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

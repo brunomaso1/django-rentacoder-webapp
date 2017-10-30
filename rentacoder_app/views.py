@@ -9,8 +9,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm, UserProfileForm
-from .models import User, Project, Technology
+from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm, UserProfileForm, \
+    ProjectQuestionForm, AnswerQuestionForm
+from .models import User, Project, Technology, ProjectQuestion
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
 
@@ -82,6 +83,10 @@ def project(request, pk):
     context = {
         "project": project,
         "job_offers": job_offers,
+        "own_project": request.user == project.user,
+        "questions": project.projectquestion_set.all(),     # TODO: Private questions, private answers
+        "question_form": ProjectQuestionForm(),
+        "answer_form": AnswerQuestionForm(),
         "already_applied": job_offers.filter(user=request.user).exists(),
     }
     return render(request, 'views/project.html', context)
@@ -138,6 +143,42 @@ def apply_to_project(request, pk):
             messages.error(request, 'Invalid form data')
 
             return redirect(reverse('apply'))
+
+
+def send_question(request, pk):
+    if request.method == POST:
+        log.info("Attempting to send question for project {} by user {} - Request: {}".
+                 format(pk, request.user, request.POST))
+        form = ProjectQuestionForm(request.POST)
+        if form.is_valid():
+            form.user_id = request.user.pk
+            form.project_id = pk
+            question = form.save(commit=False)
+            question.user_id = request.user.pk
+            question.project_id = pk
+            question.save()
+            return redirect(reverse('project', kwargs={"pk": pk}))
+        else:
+            log.error("Invalid form data: {}".format(form.errors.as_json()))
+            messages.error(request, 'Invalid form data')
+            return redirect(reverse('project'), kwargs={"pk": pk})
+
+
+def answer_question(request, pk, question_id):
+    if request.method == POST:
+        log.info("Attempting to answer question {} for project {} by user {} - Request: {}".
+                 format(question_id, pk, request.user, request.POST))
+        form = AnswerQuestionForm(request.POST)
+        if form.is_valid():
+            question = ProjectQuestion.objects.get(pk=question_id)
+            question.answer = form.cleaned_data.get('answer')
+            question.save()
+            return redirect(reverse('project', kwargs={"pk": pk}))
+        else:
+            log.error("Invalid form data: {}".format(form.errors.as_json()))
+            messages.error(request, 'Invalid form data')
+            return redirect(reverse('project'), kwargs={"pk": pk})
+
 
 
 def register(request):
@@ -220,3 +261,4 @@ def validate_email(request, token):
         return render(request, template, {'title': 'Success!', 'message': msg})
     else:
         return render(request, template, {'title': 'Ops!, error:', 'message': error.text})
+
