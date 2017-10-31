@@ -8,7 +8,10 @@
         {{ project.title }}<br>
         {{ project.description }}<br>
         {{ project.openings }}<br>
-
+        {% for technology in technologies %}
+            {{ technology }}
+        {% endfor %}
+        
         {% if job_offers %}
             Applicants:<br>
             {% for offer in job_offers %}

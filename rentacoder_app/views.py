@@ -92,6 +92,7 @@ def project(request, pk):
     context = {
         "project": project,
         "job_offers": job_offers,
+        "technologies": list(project.technologies.all().values_list("name", flat=True)),
         "own_project": request.user == project.user,
         "questions": project.projectquestion_set.all(),  # TODO: Private questions, private answers
         "question_form": ProjectQuestionForm(),
