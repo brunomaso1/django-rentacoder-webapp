@@ -3,64 +3,116 @@
 {% block title %}Project {{ project.title }}{% endblock title %}
 
 {% block content %}
-    <div class="container">
-        {{ project.id }}<br>
-        {{ project.title }}<br>
-        {{ project.description }}<br>
-        {{ project.openings }}<br>
-        {% for technology in technologies %}
-            {{ technology }}
-        {% endfor %}
-        
-        {% if job_offers %}
-            Applicants:<br>
-            {% for offer in job_offers %}
-                {{ offer.user }}<br>
-            {% endfor %}
-        {% endif %}
 
-        {% if own_project %}
-            <form action="{% url 'edit' project.id %}">
-                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                    Edit
-                </button>
-            </form>
-            {#        {% else %}#}
-            <h4>Leave a Question</h4>
-            <form action="{% url 'send_question' project.id %}" method="POST">
-                {% csrf_token %}
-                {{ question_form.question }}
-                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                    Send
-                </button>
-            </form>
-        {% endif %}
 
-        {% for question in questions %}
-            <h2>{{ question.question }}</h2>
+    <div class="container col-md-6 col-md-offset-3">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading"><b>{{ project.title }} project</b></div>
+            <div class="panel-body">
+
+                    {% for tech in technologies %}
+                        <span class="label label-info">{{ tech }}</span>
+                    {% endfor %}
+                <br><br>
+                {{ project.description }}
+
+                <div class="table-responsive">
+                    {% if job_offers %}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>$</th>
+                                <th>Hours</th>
+                            </tr>
+                            </thead>
+                            {% for offer in job_offers %}
+                                <tr>
+                                    <td>{{ offer.user }}</td>
+                                    <td>{{ offer.money }}</td>
+                                    <td>{{ offer.hours }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+
+                </div>
+                <b> Openings: </b>{{ project.openings }}
+                <table class="table">
+                    <tr>
+                        <td style="border-top: none;">
+                            <div class="col-md-8 col-md-offset-2 text-center">
+                                <form action="{% url 'edit' project.id %}">
+                                    <button type="submit" class="btn btn-primary btn-md btn-block submit_button">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                        Edit
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% if already_applied %}
+                        <tr>
+                            <td style="border-top: none;">
+                                <div class="col-md-4 col-md-offset-4 text-center">
+                                    <span class="label label-success">Already applied for this Project</span>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td style="border-top: none;">
+                                <div class="col-md-8 col-md-offset-2 text-center">
+                                    <form action="{% url 'apply' project.id %}">
+                                        <button type="submit" class="btn btn-md btn-primary btn-block submit_button">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                            Apply for this Project
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                </table>
+
             {% if own_project %}
-                {% if not question.answer %}
-                    <form action="{% url 'answer_question' project.id question.id %}" method="POST">
-                        {% csrf_token %}
-                        {{ answer_form.answer }}
-                        <button type="submit" class="btn submit_button">
-                            Send
-                        </button>
-                    </form>
-                {% endif %}
+                {#        {% else %}#}
+                <h4>Leave a Question</h4>
+                <form action="{% url 'send_question' project.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ question_form.question }}
+                    <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                        Send
+                    </button>
+                </form>
             {% endif %}
-            <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
-        {% endfor %}
 
-
-        {% if already_applied %}
-            <span class="label label-success">Already applied for this Project</span>
-        {% else %}
-            <form action="{% url 'apply' project.id %}">
-                <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                    Apply for this Project
-                </button>
-            </form>
-        {% endif %}
+            {% for question in questions %}
+                <h2>{{ question.question }}</h2>
+                {% if own_project %}
+                    {% if not question.answer %}
+                        <form action="{% url 'answer_question' project.id question.id %}" method="POST">
+                            {% csrf_token %}
+                            {{ answer_form.answer }}
+                            <button type="submit" class="btn submit_button">
+                                Send
+                            </button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+                <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
+            {% endfor %}
+            </div>
+        </div>
     </div>
+    </div>
+
+
+
+
+
 {% endblock %}
