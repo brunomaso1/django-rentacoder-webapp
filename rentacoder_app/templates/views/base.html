@@ -1,5 +1,6 @@
 {% load staticfiles i18n %}
 {% url 'register' as register_url %}
+{% url 'login' as login_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +107,6 @@
             </ul>
             {% else %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'login' %}">Already have an account? Login!</a></li>
                     {% if request.get_full_path != register_url %}
                     <li><a href="{% url 'register' %}">Or Sign Up now!</a></li>
                     {% endif %}
