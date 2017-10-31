@@ -1,9 +1,16 @@
-#titles
-{
- text-align: center;
+.inline-headers h6 {
+  display: inline-block;
+  vertical-align: baseline;
 }
 
-#titles div, #titles p
-{
-    display: inline-block;
+hr.line-style2 {
+    border-top: 3px double #8c8b8b;
+}
+
+hr.line-style1 {
+	border-top: 1px ;
+}
+
+.mycontent-right {
+  border-left: 1px solid #8c8b8b;
 }

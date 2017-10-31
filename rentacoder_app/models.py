@@ -251,7 +251,7 @@ class Project(models.Model):
         next_id = (last_project and last_project.pk + 1) or 1
         for n in range(number):
             date = timezone.now()
-            Project.objects.create(title="Project %i" % next_id, description=uuid4(),
+            Project.objects.create(title="Project %i" % next_id, description="Decription %i" % next_id,
                                    user_id=1, openings=randint(1, 10),
                                    start_date=date, end_date=date)
             next_id += 1

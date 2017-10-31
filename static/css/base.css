@@ -29,6 +29,19 @@ body {
     padding-top: 3px;
 }
 
+.padding-right-1 {
+    padding-right: 1px;
+}
+.padding-right-2 {
+    padding-right: 2px;
+}
+.padding-right-3 {
+    padding-right: 3px;
+}
+.padding-right-5 {
+    padding-right: 5px;
+}
+
 /** NavBar **/
 .navbar-login
 {
