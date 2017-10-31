@@ -1,0 +1,6 @@
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'rentacoder_core.settings.development'
+import django
+django.setup()
+from rentacoder_app import models
+models.Project.generate(10)
