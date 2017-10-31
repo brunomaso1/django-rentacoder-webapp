@@ -11,8 +11,9 @@
                     <span class="label label-info">{{ tech }}</span>
                 {% endfor %}
                 <br><br>
-                {{ project.description }}
-
+                <div>
+                    {{ project.description }}
+                </div>
                 <div class="table-responsive">
                     {% if job_offers %}
                         <table class="table">
