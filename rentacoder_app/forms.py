@@ -32,7 +32,7 @@ class AnswerQuestionForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'technologies', 'avatar')
+        fields = ('first_name', 'last_name', 'email', 'technologies', 'avatar')
 
 
 class RegisterForm(forms.Form):

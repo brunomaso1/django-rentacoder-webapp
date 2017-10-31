@@ -3,17 +3,13 @@
 {% block title %}Project {{ project.title }}{% endblock title %}
 
 {% block content %}
-
-
     <div class="container col-md-6 col-md-offset-3">
-
         <div class="panel panel-primary">
             <div class="panel-heading"><b>{{ project.title }} project</b></div>
             <div class="panel-body">
-
-                    {% for tech in technologies %}
-                        <span class="label label-info">{{ tech }}</span>
-                    {% endfor %}
+                {% for tech in technologies %}
+                    <span class="label label-info">{{ tech }}</span>
+                {% endfor %}
                 <br><br>
                 {{ project.description }}
 
@@ -27,6 +23,7 @@
                                 <th>Hours</th>
                             </tr>
                             </thead>
+                            <tbody>
                             {% for offer in job_offers %}
                                 <tr>
                                     <td>{{ offer.user }}</td>
@@ -79,33 +76,33 @@
 
                 </table>
 
-            {% if own_project %}
-                {#        {% else %}#}
-                <h4>Leave a Question</h4>
-                <form action="{% url 'send_question' project.id %}" method="POST">
-                    {% csrf_token %}
-                    {{ question_form.question }}
-                    <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                        Send
-                    </button>
-                </form>
-            {% endif %}
-
-            {% for question in questions %}
-                <h2>{{ question.question }}</h2>
                 {% if own_project %}
-                    {% if not question.answer %}
-                        <form action="{% url 'answer_question' project.id question.id %}" method="POST">
-                            {% csrf_token %}
-                            {{ answer_form.answer }}
-                            <button type="submit" class="btn submit_button">
-                                Send
-                            </button>
-                        </form>
-                    {% endif %}
+                    {#        {% else %}#}
+                    <h4>Leave a Question</h4>
+                    <form action="{% url 'send_question' project.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ question_form.question }}
+                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                            Send
+                        </button>
+                    </form>
                 {% endif %}
-                <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
-            {% endfor %}
+
+                {% for question in questions %}
+                    <h2>{{ question.question }}</h2>
+                    {% if own_project %}
+                        {% if not question.answer %}
+                            <form action="{% url 'answer_question' project.id question.id %}" method="POST">
+                                {% csrf_token %}
+                                {{ answer_form.answer }}
+                                <button type="submit" class="btn submit_button">
+                                    Send
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                    <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
+                {% endfor %}
             </div>
         </div>
     </div>
