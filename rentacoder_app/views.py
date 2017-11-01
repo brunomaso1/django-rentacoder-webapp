@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
+from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
 from django.template import loader
 
 import logging
@@ -23,8 +24,24 @@ POST = 'POST'
 
 @login_required
 def portal(request):
+    projects_last_all = Project.objects.order_by('-id')
+    projects_top = Project.objects.all()[:7]
+    # projectsRecomended = Project.objects.filter(technologies__headline__conatins='Java')
+    projects_recomended = Project.objects.all()[:14:2]
+    page = request.GET.get('page', 1)
+
+    paginator_last = Paginator(projects_last_all, 5)
+    try:
+        projects_last = paginator_last.page(page)
+    except PageNotAnInteger:
+        projects_last = paginator_last.page(1)
+    except EmptyPage:
+        projects_last = paginator_last.page(paginator_last.num_pages)
+
     context = {
-        "projects": Project.objects.all()
+        "projectsLast": projects_last,
+        "projectsTop": projects_top,
+        "projectsRecomended": projects_recomended
     }
     return render(request, 'views/portal.html', context)
 

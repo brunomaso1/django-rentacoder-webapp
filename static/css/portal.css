@@ -3,6 +3,16 @@
   vertical-align: baseline;
 }
 
+.inline-block h3 {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.inline-block h4 {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
 hr.line-style2 {
     border-top: 3px double #8c8b8b;
 }
