@@ -1,0 +1,237 @@
+{% extends 'views/base.html' %}
+
+{% block meta_tags %}
+{{ block.super }}
+{% endblock meta_tags %}
+
+{% block title %}RentACoder{% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+<!-- Custom styles for this template -->
+<link href="/static/css/portal.css" rel="stylesheet"/>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 padding-top-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h4><span class="fa fa-book"></span> Last Projects</h4>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fa fa-cog"> Category</i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Software</a></li>
+                                        <li><a href="#">Hardware</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fa fa-globe"> Country</i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Uruguay</a></li>
+                                        <li><a href="#">Brazil</a></li>
+                                        <li><a href="#">Argentina</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <i class="fa fa-cog"> Technology</i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">JavaScript</a></li>
+                                        <li><a href="#">N/A</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% for project in projectsLast %}
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img class="img-responsive" src="http://placehold.it/90x90">
+                        </div>
+                        <div class="col-xs-9 mycontent-right">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h4 class="product-name"><strong><a href="{% url 'project' project.pk %}">{{project.title}}</a></strong>
+                                    </h4>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p class="sumary-last-projects">{{project.description}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="btn btn-group">
+                                        <button class="btn btn-primary btn-sm"><i class="fa fa-check-circle-o"
+                                                                                  aria-hidden="true"
+                                                                                  title="Apply"></i></button>
+                                        <button class="btn btn-secondary btn-sm"><i class="heart fa fa-heart-o"
+                                                                                    aria-hidden="true"
+                                                                                    title="Add Favorite"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="inline-headers pull-right align-bottom">
+                                        <h6 class="padding-right-1"><i class="fa fa-navicon"
+                                                                       aria-hidden="true"></i> Category</h6>
+                                        <h6 class="padding-right-1"><i class="fa fa-globe" aria-hidden="true"></i>
+                                            Country</h6>
+                                        <h6><i class="fa fa-flask" aria-hidden="true"></i> Technology</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="line-style2">
+                    {% empty %}
+                    <div class="inline-block">
+                        <center><h3>Sorry, you haven't create any project. </h3></center>
+                        <center><h4>Create one now!</h4></center>
+                        <center><a href="{% url 'new_project' %}">Click me</a></center>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                    <div class="row text-center">
+                        <div class="col-xs-12">
+                            <!-- Paginado -->
+                            {% if projectsLast.has_other_pages %}
+                            <ul class="pagination">
+
+                                {% if projectsLast.has_previous %}
+                                <li><a href="?page={{ projectsLast.previous_page_number }}"><i
+                                        class="fa fa-chevron-left"
+                                        aria-hidden="true"></i></a></li>
+                                {% else %}
+                                <li class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+                                </li>
+                                {% endif %}
+
+                                {% if projectsLast.number|add:'-4' > 1 %}
+                                <li><a href="?page={{ projectsLast.number|add:'-5' }}">&hellip;</a></li>
+                                {% endif %}
+
+                                {% for i in projectsLast.paginator.page_range %}
+                                {% if projectsLast.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% elif i > projectsLast.number|add:'-5' and i < projectsLast.number|add:'5' %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if projectsLast.paginator.num_pages > projectsLast.number|add:'4' %}
+                                <li><a href="?page={{ projectsLast.number|add:'5' }}">&hellip;</a></li>
+                                {% endif %}
+
+                                {% if projectsLast.has_next %}
+                                <li><a href="?page={{ projectsLast.next_page_number }}"><i class="fa fa-chevron-right"
+                                                                                           aria-hidden="true"></i></a>
+                                </li>
+                                {% else %}
+                                <li class="disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 padding-top-5">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h4><span class="fa fa-book"></span> Top Projects</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            {% for project in projectsTop %}
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <h5 class="product-name"><strong><a href="{% url 'project' project.pk %}">{{project.title}}</a></strong>
+                                            </h5>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <p class="sumary-top-projects">{{project.description}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="btn btn-group">
+                                                <button class="btn btn-primary btn-xs"><i class="fa fa-check-circle-o"
+                                                                                          aria-hidden="true"
+                                                                                          title="Apply"></i>
+                                                </button>
+                                                <button class="btn btn-secondary btn-xs"><i class="heart fa fa-heart-o"
+                                                                                            aria-hidden="true"
+                                                                                            title="Add Favorite"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="inline-headers pull-right align-bottom">
+                                                <h6 class="padding-right-1"><i class="fa fa-navicon"
+                                                                               aria-hidden="true"
+                                                                               title="Category"></i>
+                                                </h6>
+                                                <h6 class="padding-right-1"><i class="fa fa-globe"
+                                                                               aria-hidden="true"
+                                                                               title="Country"></i></h6>
+                                                <h6><i class="fa fa-flask" aria-hidden="true" title="Technology"></i>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="line-style1">
+                            {% empty %}
+                            <center><h4>You have no projects that are top right now... </h4></center>
+                            <center><i class="fa fa-frown-o" aria-hidden="true"></i></center>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript_footer %}
+{{ block.super }}
+<script src="/static/js/portal.js"></script>
+{% endblock javascript_footer %}

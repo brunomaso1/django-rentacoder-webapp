@@ -14,7 +14,6 @@ from rentacoder_app.email_manager import EmailManager
 
 log = logging.getLogger(__name__)
 
-
 class Technology(models.Model):
     name = models.CharField(max_length=100)
 
