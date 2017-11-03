@@ -25,8 +25,16 @@ hr.line-style1 {
   border-left: 1px solid #8c8b8b;
 }
 
-.sumary-last-projects {
-    font-size: small;
+.project-description {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-thumbnail {
+    margin: auto;
+    display: block;
 }
 
 .sumary-top-projects {

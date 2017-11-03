@@ -195,14 +195,17 @@ def apply_to_project(request, pk):
                         'project': project,
                     }
                 )
-                send_mail(
-                    subject="Applied to Project {}!".format(project.title),
-                    message='',
-                    from_email='',
-                    recipient_list=(request.user.email,),
-                    fail_silently=False,
-                    html_message=html_message
-                )
+                try:
+                    send_mail(
+                        subject="Applied to Project {}!".format(project.title),
+                        message='',
+                        from_email='',
+                        recipient_list=(request.user.email,),
+                        fail_silently=False,
+                        html_message=html_message
+                    )
+                except Exception as e:
+                    log.exception("Problem sending email: {}".format(e))
                 return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
