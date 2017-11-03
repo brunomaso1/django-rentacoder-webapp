@@ -48,20 +48,20 @@ def portal(request):
 
 @login_required
 def my_projects(request):
-    projects_last_all = Project.objects.filter(user=request.user).order_by('-id')
+    projects_all = Project.objects.filter(user=request.user).order_by('-id')
     projects_top = Project.objects.filter(user=request.user)
     page = request.GET.get('page', 1)
 
-    paginator_last = Paginator(projects_last_all, 5)
+    paginator = Paginator(projects_all, 5)
     try:
-        projects_last = paginator_last.page(page)
+        projects_all = paginator.page(page)
     except PageNotAnInteger:
-        projects_last = paginator_last.page(1)
+        projects_all = paginator.page(1)
     except EmptyPage:
-        projects_last = paginator_last.page(paginator_last.num_pages)
+        projects_all = paginator.page(paginator.num_pages)
 
     context = {
-        "projectsLast": projects_last,
+        "projectsAll": projects_all,
         "projectsTop": projects_top,
     }
     return render(request, 'views/my_projects.html', context)
