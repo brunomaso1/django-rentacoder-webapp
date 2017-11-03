@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseForbidden
-from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import loader
 
 import logging
@@ -177,13 +178,31 @@ def apply_to_project(request, pk):
             if job_offers.filter(user=request.user).exists():
                 log.error("Invalid form data: {}".format(form.errors.as_json()))
                 messages.error(request, 'Already applied to this project.')
-
                 return redirect(reverse('apply', kwargs={"pk": pk}))
             else:
                 job_offer = form.save(commit=False)
                 job_offer.user_id = request.user.pk
                 job_offer.project_id = pk
                 job_offer.save()
+                log.info("User {} is now an applicant for Proyect {}".format(request.user, pk))
+
+                # Send mail to user
+                project = Project.objects.get(pk=pk)
+                html_message = loader.render_to_string(
+                    'email/applied_to_project.html',
+                    {
+                        'user_name': request.user.username,
+                        'project': project,
+                    }
+                )
+                send_mail(
+                    subject="Applied to Project {}!".format(project.title),
+                    message='',
+                    from_email='',
+                    recipient_list=(request.user.email,),
+                    fail_silently=False,
+                    html_message=html_message
+                )
                 return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
