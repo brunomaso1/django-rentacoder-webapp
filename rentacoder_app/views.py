@@ -158,6 +158,8 @@ def edit_project(request, pk):
 
 @login_required
 def apply_to_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    job_offers = project.joboffer_set.all()
     if request.method == GET:
         form = ApplyToProjectForm()
         context = {
@@ -172,17 +174,22 @@ def apply_to_project(request, pk):
         if form.is_valid():
             form.user_id = request.user.pk
             form.project_id = pk
-            job_offer = form.save(commit=False)
-            job_offer.user_id = request.user.pk
-            job_offer.project_id = pk
-            job_offer.save()
+            if job_offers.filter(user=request.user).exists():
+                log.error("Invalid form data: {}".format(form.errors.as_json()))
+                messages.error(request, 'Already applied to this project.')
 
-            return redirect(reverse('project', kwargs={"pk": pk}))
+                return redirect(reverse('apply', kwargs={"pk": pk}))
+            else:
+                job_offer = form.save(commit=False)
+                job_offer.user_id = request.user.pk
+                job_offer.project_id = pk
+                job_offer.save()
+                return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
 
-            return redirect(reverse('apply'))
+            return redirect(reverse('apply', kwargs={"pk": pk}))
 
 
 def send_question(request, pk):

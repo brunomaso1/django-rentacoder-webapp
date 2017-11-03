@@ -24,4 +24,3 @@ def verify_registration_token(token):
         error = Error(err.ERROR_UNKNOWN)
 
     return verified, error
-
