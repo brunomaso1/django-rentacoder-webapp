@@ -1,6 +1,6 @@
 from .base import *
 
-DOMAIN = "54.187.175.219"
+DOMAIN = "34.212.201.181"
 ALLOWED_HOSTS = [DOMAIN]
 
 DATABASES = {
