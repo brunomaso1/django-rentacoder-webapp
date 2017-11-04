@@ -42,12 +42,20 @@
                         <td style="border-top: none;">
                             <div class="col-md-8 col-md-offset-2 text-center">
                                 {% if project.user == user %}
-                                    <form action="{% url 'edit' project.id %}">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block submit_button">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                            Edit
+                                    {% if project.joboffer_set.all|length == 0 %}
+                                        <form action="{% url 'edit' project.id %}">
+                                            <button type="submit"
+                                                    class="btn btn-primary btn-md btn-block submit_button">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                                Edit
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <button type="button" data-toggle="tooltip"
+                                                title="Can't edit once people have applied for the project!"
+                                                class="btn btn-primary disabled">Unable to Edit
                                         </button>
-                                    </form>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </td>

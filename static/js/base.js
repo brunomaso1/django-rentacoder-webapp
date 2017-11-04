@@ -7,5 +7,8 @@ $(window).scroll(function() {
     {
         $('.navbar-trans').removeClass('afterscroll');
     }
+});
 
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
 });
