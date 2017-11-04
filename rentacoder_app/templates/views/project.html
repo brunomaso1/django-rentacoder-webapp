@@ -43,12 +43,14 @@
                     <tr>
                         <td style="border-top: none;">
                             <div class="col-md-8 col-md-offset-2 text-center">
-                                <form action="{% url 'edit' project.id %}">
-                                    <button type="submit" class="btn btn-primary btn-md btn-block submit_button">
-                                        <i class="glyphicon glyphicon-pencil"></i>
-                                        Edit
-                                    </button>
-                                </form>
+                                {% if project.user == user %}
+                                    <form action="{% url 'edit' project.id %}">
+                                        <button type="submit" class="btn btn-primary btn-md btn-block submit_button">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                            Edit
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </td>
                     </tr>
@@ -61,24 +63,25 @@
                             </td>
                         </tr>
                     {% else %}
-                        <tr>
-                            <td style="border-top: none;">
-                                <div class="col-md-8 col-md-offset-2 text-center">
-                                    <form action="{% url 'apply' project.id %}">
-                                        <button type="submit" class="btn btn-md btn-primary btn-block submit_button">
-                                            <i class="glyphicon glyphicon-ok"></i>
-                                            Apply for this Project
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        {% if project.user != user %}
+                            <tr>
+                                <td style="border-top: none;">
+                                    <div class="col-md-8 col-md-offset-2 text-center">
+                                        <form action="{% url 'apply' project.id %}">
+                                            <button type="submit" class="btn btn-md btn-primary btn-block submit_button">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                                Apply for this Project
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endif %}
 
                 </table>
 
-                {% if own_project %}
-                    {#        {% else %}#}
+                {% if project.user == user %}
                     <h4>Leave a Question</h4>
                     <form action="{% url 'send_question' project.id %}" method="POST">
                         {% csrf_token %}
@@ -91,7 +94,7 @@
 
                 {% for question in questions %}
                     <h2>{{ question.question }}</h2>
-                    {% if own_project %}
+                    {% if project.user == user %}
                         {% if not question.answer %}
                             <form action="{% url 'answer_question' project.id question.id %}" method="POST">
                                 {% csrf_token %}
