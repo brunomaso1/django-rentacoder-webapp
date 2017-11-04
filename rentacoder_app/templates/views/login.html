@@ -44,7 +44,7 @@
                                         {% csrf_token %}
                                         <div class="form-signin">
                                             <span id="reauth-email" class="reauth-email"></span>
-                                            <input type="username" name="{{ form.username.html_name }}"
+                                            <input type="text" name="{{ form.username.html_name }}"
                                                    class="form-control" placeholder="Username" required autofocus>
                                             <input type="password" name="{{ form.password.html_name }}"
                                                    class="form-control" placeholder="Password" required>

@@ -74,6 +74,11 @@ body {
   min-width: 300px;
 }
 
+.user-chat-thumbnail {
+    width: 25px;
+    height: 25px;
+}
+
 /*.navbar {
    background-color: transparent;
    background: transparent;

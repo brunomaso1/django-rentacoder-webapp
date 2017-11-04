@@ -3,7 +3,7 @@
 {% block title %}Project {{ project.title }}{% endblock title %}
 
 {% block content %}
-    <div class="container col-md-6 col-md-offset-3">
+    <h4 class="container col-md-6 col-md-offset-3">
         <div class="panel panel-primary">
             <div class="panel-heading"><b>{{ project.title }} project</b></div>
             <div class="panel-body">
@@ -35,8 +35,6 @@
                             </tbody>
                         </table>
                     {% endif %}
-
-
                 </div>
                 <b> Openings: </b>{{ project.openings }}
                 <table class="table">
@@ -68,7 +66,8 @@
                                 <td style="border-top: none;">
                                     <div class="col-md-8 col-md-offset-2 text-center">
                                         <form action="{% url 'apply' project.id %}">
-                                            <button type="submit" class="btn btn-md btn-primary btn-block submit_button">
+                                            <button type="submit"
+                                                    class="btn btn-md btn-primary btn-block submit_button">
                                                 <i class="glyphicon glyphicon-ok"></i>
                                                 Apply for this Project
                                             </button>
@@ -78,39 +77,50 @@
                             </tr>
                         {% endif %}
                     {% endif %}
-
                 </table>
 
-                {% if project.user == user %}
-                    <h4>Leave a Question</h4>
-                    <form action="{% url 'send_question' project.id %}" method="POST">
-                        {% csrf_token %}
-                        {{ question_form.question }}
-                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                            Send
-                        </button>
-                    </form>
-                {% endif %}
-
+                <h3>Questions</h3>
                 {% for question in questions %}
-                    <h2>{{ question.question }}</h2>
-                    {% if project.user == user %}
-                        {% if not question.answer %}
+                    <div class="row">
+                        <img class="user-chat-thumbnail pull-left" src="/media/{{ question.user.avatar }}">
+                        <div class="media-body">
+                            {{ question.question }}
+                        </div>
+                        {% if not question.answer and project.user == user %}
                             <form action="{% url 'answer_question' project.id question.id %}" method="POST">
                                 {% csrf_token %}
-                                {{ answer_form.answer }}
-                                <button type="submit" class="btn submit_button">
-                                    Send
-                                </button>
+                                <div class="form-actions input-group">
+                                    <input type="text" name="{{ answer_form.answer.html_name }}" class="form-control"
+                                           placeholder="Leave a response" required autofocus>
+                                    <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Answer</button>
+                                </span>
+                                </div>
                             </form>
+                        {% else %}
+                            <img src="/media/{{ project.user.avatar }}" class="user-chat-thumbnail pull-right">
+                            <div class="media-body" style="text-align: right;">
+                                {{ question.answer }}
+                            </div>
                         {% endif %}
-                    {% endif %}
-                    <h3 style="color: red; text-align: right;">{{ question.answer }}</h3>
+                    </div>
                 {% endfor %}
+                {% if project.user != user %}
+                    <div>
+                        <form action="{% url 'send_question' project.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-actions input-group">
+                                <input type="text" name="{{ question_form.question.html_name }}" class="form-control"
+                                       placeholder="Leave a question" required autofocus>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Ask</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
         </div>
-    </div>
-    </div>
 
 
 
