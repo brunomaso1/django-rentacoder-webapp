@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container col-md-6 col-md-offset-3">
         <div class="panel panel-primary">
-            <div class="panel-heading"><b>{{ project.title }}</b></div>
+            <div class="panel-heading text-center"><b>{{ project.title }}</b></div>
             <div class="panel-body">
                 {% for tech in technologies %}
                     <span class="label label-info">{{ tech }}</span>
@@ -14,6 +14,8 @@
                 <div class="text-wrap">
                     {{ project.description }}
                 </div>
+                <!--Only the owner can see the full table of applicants-->
+                {% if project.user == user %}
                 <div class="table-responsive">
                     {% if job_offers %}
                         <table class="table">
@@ -55,6 +57,7 @@
                     {% endif %}
                 </div>
                 <b> Openings: </b>{{ project.openings }}
+                {% endif %}
                 <table class="table">
                     <tr>
                         <td style="border-top: none;">
