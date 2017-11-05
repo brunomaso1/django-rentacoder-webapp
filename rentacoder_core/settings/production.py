@@ -1,6 +1,6 @@
 from .base import *
 
-DOMAIN = "rent-a-coder.tk"
+DOMAIN = "http://rent-a-coder.tk"
 IP = "34.212.201.181"
 ALLOWED_HOSTS = [DOMAIN, IP]
 
