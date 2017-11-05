@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import loader
@@ -26,9 +27,6 @@ POST = 'POST'
 @login_required
 def portal(request):
     projects_last_all = Project.objects.order_by('-id')
-    projects_top = Project.objects.all()[:7]
-    # projectsRecomended = Project.objects.filter(technologies__headline__conatins='Java')
-    projects_recomended = Project.objects.all()[:14:2]
     page = request.GET.get('page', 1)
 
     paginator_last = Paginator(projects_last_all, 5)
@@ -40,9 +38,7 @@ def portal(request):
         projects_last = paginator_last.page(paginator_last.num_pages)
 
     context = {
-        "projectsLast": projects_last,
-        "projectsTop": projects_top,
-        "projectsRecomended": projects_recomended
+        "projectsLast": projects_last
     }
     return render(request, 'views/portal.html', context)
 
@@ -344,3 +340,11 @@ def accept_job_offer(request, pk, offer_id):
 
         return redirect(reverse('project', kwargs={"pk": pk}))
 
+@login_required
+def scores(request):
+    context = {
+        "pending_scores": ProjectScore.objects.filter(Q(coder=request.user) | Q(project__user=request.user)),
+        "coder_scores": ProjectScore.objects.filter(coder=request.user),
+        "owner_scores": ProjectScore.objects.filter(project__user=request.user),
+    }
+    return render(request, 'views/scores.html', context)

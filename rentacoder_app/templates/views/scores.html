@@ -1,0 +1,66 @@
+{% extends 'views/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 padding-top-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h4><span class="fa fa-certificate" style="margin-right: 5px;"></span>Scores
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <h3>Pending:</h3>
+                            {% for score in pending_scores %}
+                                {% if score.coder == user %}
+                                    <h4>Rate Project Owner {{ score.project.user }} of Project {{ score.project.title }}: </h4>
+                                {% else %}
+                                    <h4>Rate <b>{{ score.coder }}</b> performance as Coder in Project
+                                        <i>{{ score.project.title }}</i>: </h4>
+                                {% endif %}
+                            {% empty %}
+                                <h4>No Scoring is pending</h4>
+                            {% endfor %}
+                            <h3>As Coder:</h3>
+                            {% for score in coder_scores %}
+                                {% if score.owner_score > 0 and coder_score > 0 %}
+                                    <!--show full score-->
+                                    Coder: {{ score.coder_score }}<br>
+                                    Owner: {{ score.owner_score }}
+                                {% else %}
+                                    <!--show pending scores-->
+                                    Coder: {{ score.coder_score }} (TODO: Input here)<br>
+                                    Owner: Pending
+                                {% endif %}
+                            {% empty %}
+                                <h5>You have no scores yet.</h5>
+                            {% endfor %}
+
+                            <h3>As Project Owner:</h3>
+                            {% for score in owner_scores %}
+                                {% if score.owner_score > 0 and coder_score > 0 %}
+                                    <!--show full score-->
+                                    Coder: {{ score.coder_score }}<br>
+                                    Owner: {{ score.owner_score }}
+                                {% else %}
+                                    <!--show pending score-->
+                                    Coder: Pending<br>
+                                    Owner: {{ score.owner_score }} (TODO: Input here)<br>
+                                {% endif %}
+                            {% empty %}
+                                <h5>You have no scores yet.</h5>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

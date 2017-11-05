@@ -21,7 +21,7 @@
                     <div class="panel-title">
                         <div class="row">
                             <div class="col-xs-4">
-                                <h4><span class="fa fa-book"></span> Last Projects</h4>
+                                <h4><span class="fa fa-book" style="margin-right: 5px;"></span>Last Projects</h4>
                             </div>
                             <div class="col-xs-8 text-right">
                                 <!--
@@ -80,10 +80,9 @@
                     </div>
                     <hr class="line-style2">
                     {% empty %}
-                    <div class="inline-block">
-                        <center><h3>Sorry, no aviable projects. </h3></center>
-                        <center><h4>Create one now!</h4></center>
-                        <center><a href="{% url 'new_project' %}">Click me</a></center>
+                    <div class="inline-block" style="text-align: center;">
+                        <h3>Sorry, no available projects.</h3><br>
+                        <a href="{% url 'new_project' %}"><h4>Create one now!</h4></a>
                     </div>
                     {% endfor %}
                 </div>
