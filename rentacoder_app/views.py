@@ -117,6 +117,7 @@ def project(request, pk):
     context = {
         "project": project,
         "job_offers": job_offers,
+        "openings_available": project.openings - len(job_offers.filter(accepted=True)),
         "technologies": list(project.technologies.all().values_list("name", flat=True)),
         "questions": project.projectquestion_set.all(),  # TODO: Private questions, private answers
         "question_form": ProjectQuestionForm(),

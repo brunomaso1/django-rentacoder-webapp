@@ -56,8 +56,13 @@
                         </table>
                     {% endif %}
                 </div>
-                <b> Openings: </b>{{ project.openings }}
                 {% endif %}
+                <div class="row text-center" align="center">
+                    <b>Hiring: </b>{{ project.openings }}<br>
+                    <b>Available: </b>{{ openings_available }}
+                </div>
+
+
                 <table class="table">
                     <tr>
                         <td style="border-top: none;">
@@ -108,52 +113,55 @@
                     {% endif %}
                 </table>
 
-                <h3>Questions</h3>
-                {% for question in questions %}
-                    <div class="row col-xs-12">
-                        <img class="user-chat-thumbnail pull-left" src="/media/{{ question.user.avatar }}">
-                        <div class="media-body">
-                            {{ question.question }}
+                <div class="col-xs-12">
+                    <h3>Questions</h3>
+                    {% for question in questions %}
+                        <div class="row">
+                            <img class="user-chat-thumbnail pull-left" src="/media/{{ question.user.avatar }}">
+                            <div class="media-body">
+                                {{ question.question }}
+                            </div>
+                            {% if project.user == user and not question.answer %}
+                                <form action="{% url 'answer_question' project.id question.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-actions input-group">
+                                        <input type="text" name="{{ answer_form.answer.html_name }}"
+                                               class="form-control"
+                                               placeholder="Leave a response" required autofocus>
+                                        <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Answer</button>
+                                </span>
+                                    </div>
+                                </form>
+                            {% endif %}
+                            {% if question.answer %}
+                                <img src="/media/{{ project.user.avatar }}" class="user-chat-thumbnail pull-right">
+                                <div class="media-body" style="text-align: right;">
+                                    {{ question.answer }}
+                                </div>
+                            {% endif %}
                         </div>
-                        {% if project.user == user and not question.answer %}
-                            <form action="{% url 'answer_question' project.id question.id %}" method="POST">
+                    {% empty %}
+                        <h5>No questions yet</h5>
+                    {% endfor %}
+                    {% if project.user != user %}
+                        <div>
+                            <form action="{% url 'send_question' project.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="form-actions input-group">
-                                    <input type="text" name="{{ answer_form.answer.html_name }}" class="form-control"
-                                           placeholder="Leave a response" required autofocus>
+                                    <input type="text" name="{{ question_form.question.html_name }}"
+                                           class="form-control"
+                                           placeholder="Leave a question" required autofocus>
                                     <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Answer</button>
+                                    <button type="submit" class="btn btn-primary">Ask</button>
                                 </span>
                                 </div>
                             </form>
-                        {% endif %}
-                        {% if question.answer %}
-                            <img src="/media/{{ project.user.avatar }}" class="user-chat-thumbnail pull-right">
-                            <div class="media-body" style="text-align: right;">
-                                {{ question.answer }}
-                            </div>
-                        {% endif %}
-                    </div>
-                {% empty %}
-                    <h5>No questions yet</h5>
-                {% endfor %}
-                {% if project.user != user %}
-                    <div>
-                        <form action="{% url 'send_question' project.id %}" method="POST">
-                            {% csrf_token %}
-                            <div class="form-actions input-group">
-                                <input type="text" name="{{ question_form.question.html_name }}" class="form-control"
-                                       placeholder="Leave a question" required autofocus>
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Ask</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
 
 
 
