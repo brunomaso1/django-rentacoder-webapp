@@ -13,7 +13,7 @@ from django.urls import reverse
 
 from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm, UserProfileForm, \
     ProjectQuestionForm, AnswerQuestionForm
-from .models import User, Project, Technology, ProjectQuestion
+from .models import User, Project, Technology, ProjectQuestion, JobOffer, ProjectScore
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
 
@@ -328,3 +328,19 @@ def validate_email(request, token):
         return render(request, template, {'title': 'Success!', 'message': msg})
     else:
         return render(request, template, {'title': 'Ops!, error:', 'message': error.text})
+
+@login_required
+def accept_job_offer(request, pk, offer_id):
+    if request.method == POST:
+        log.info("Attempting to accept offer  {} for project {} by user {} - Request: {}".
+                 format(offer_id, pk, request.user, request.POST))
+        offer = JobOffer.objects.get(pk=offer_id)
+        offer.accepted = True
+        offer.save()
+
+        # Create a pending score instance.
+        # These should really be created when the project "ends", but for simplicity of testing we'll let do it earlier
+        ProjectScore.objects.create(project_id=pk, coder=offer.user)
+
+        return redirect(reverse('project', kwargs={"pk": pk}))
+
