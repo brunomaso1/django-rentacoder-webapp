@@ -46,7 +46,6 @@ def portal(request):
 @login_required
 def my_projects(request):
     projects_all = Project.objects.filter(user=request.user).order_by('-id')
-    projects_top = Project.objects.filter(user=request.user)
     page = request.GET.get('page', 1)
 
     paginator = Paginator(projects_all, 5)
@@ -59,7 +58,6 @@ def my_projects(request):
 
     context = {
         "projectsAll": projects_all,
-        "projectsTop": projects_top,
     }
     return render(request, 'views/my_projects.html', context)
 

@@ -15,15 +15,16 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-9 padding-top-5">
+        <div class="col-md-12 padding-top-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <div class="row">
                             <div class="col-xs-4">
-                                <h4><span class="fa fa-book"></span> All Projects</h4>
+                                <h4><span class="fa fa-book" style="margin-right: 5px;"></span>Your Projects</h4>
                             </div>
                             <div class="col-xs-8 text-right">
+                                <!--
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-info dropdown-toggle"
                                             data-toggle="dropdown">
@@ -49,6 +50,7 @@
                                         <li><a href="#">All</a></li>
                                     </ul>
                                 </div>
+                                -->
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-info dropdown-toggle"
                                             data-toggle="dropdown">
@@ -68,10 +70,12 @@
                 <div class="panel-body">
                     {% for project in projectsAll %}
                     <div class="row">
+                        <!--
                         <div class="col-xs-3">
                             <img class="img-responsive" src="http://placehold.it/90x90">
                         </div>
-                        <div class="col-xs-9 mycontent-right">
+                        -->
+                        <div class="col-xs-11 mycontent-right">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <h4 class="product-name"><strong><a href="{% url 'project' project.pk %}">{{project.title}}</a></strong>
@@ -81,7 +85,9 @@
                                     <p class="sumary-last-projects">{{project.description}}</p>
                                 </div>
                             </div>
+
                             <div class="row">
+                                <!--
                                 <div class="col-xs-4">
                                     <div class="btn btn-group">
                                         <button class="btn btn-primary btn-sm" onclick="location.href='{% url 'apply' project.pk %}'"><i class="fa fa-check-circle-o"
@@ -101,13 +107,16 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="inline-headers pull-right align-bottom">
+
                                         <h6 class="padding-right-1"><i class="fa fa-navicon"
                                                                        aria-hidden="true"></i> Category</h6>
                                         <h6 class="padding-right-1"><i class="fa fa-globe" aria-hidden="true"></i>
                                             Country</h6>
                                         <h6><i class="fa fa-flask" aria-hidden="true"></i> Technology</h6>
+
                                     </div>
                                 </div>
+                                -->
                             </div>
                         </div>
                     </div>
@@ -168,6 +177,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <div class="col-xs-6 col-md-3">
             <div class="row">
                 <div class="col-xs-12 col-md-12 padding-top-5">
@@ -181,6 +191,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel-body">
                             {% for project in projectsTop %}
                             <div class="row">
@@ -237,6 +248,7 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>
