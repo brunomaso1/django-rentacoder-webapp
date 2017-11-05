@@ -9,10 +9,12 @@ from django.utils import timezone
 
 import rentacoder_app.constants as const
 import rentacoder_app.errors as err
+from rentacoder_app import fields
 from rentacoder_app.common import default_expiration_delta
 from rentacoder_app.email_manager import EmailManager
 
 log = logging.getLogger(__name__)
+
 
 class Technology(models.Model):
     name = models.CharField(max_length=100)
@@ -239,6 +241,7 @@ class Project(models.Model):
     openings = models.PositiveIntegerField(default=1)
     start_date = models.DateField()
     end_date = models.DateField()
+
     # duration: calculated in days, weeks, months?
 
     class Meta:
@@ -263,9 +266,22 @@ class JobOffer(models.Model):
     money = models.IntegerField()
     hours = models.IntegerField()
     message = models.TextField()
+    accepted = models.BooleanField(default=False)
 
     class Meta:
         db_table = "job_offer"
+
+
+# Once a project starts, accepted JobOffers create a pending Score for both the Owner and the Coder
+# Value goes from 1 to 5, with 0 meaning the score is pending
+class ProjectScore(models.Model):
+    project = models.ForeignKey('Project')
+    coder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner_score = fields.IntegerRangeField(max_value=5, min_value=0, default=0)  # Score given to the Owner by the Coder
+    coder_score = fields.IntegerRangeField(max_value=5, min_value=0, default=0)  # Score given to the Coder by the Owner
+
+    class Meta:
+        db_table = "project_score"
 
 
 class ProjectQuestion(models.Model):
