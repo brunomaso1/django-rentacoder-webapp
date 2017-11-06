@@ -3,7 +3,7 @@ from .base import *
 URL = "rent-a-coder.tk"
 DOMAIN = "http://" + URL
 IP = "34.212.201.181"
-ALLOWED_HOSTS = [DOMAIN, IP]
+ALLOWED_HOSTS = [URL, IP]
 
 DATABASES = {
     'default': {
