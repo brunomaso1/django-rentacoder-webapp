@@ -241,7 +241,7 @@ class Project(models.Model):
     openings = models.PositiveIntegerField(default=1)
     start_date = models.DateField()
     end_date = models.DateField()
-
+    closed = models.BooleanField(default=False)
     # duration: calculated in days, weeks, months?
 
     class Meta:
