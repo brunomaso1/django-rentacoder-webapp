@@ -82,7 +82,7 @@ def profile(request):
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
 
-    return render(request, 'views/edit_project.html', context)
+    return render(request, 'views/profile.html', context)
 
 
 @login_required

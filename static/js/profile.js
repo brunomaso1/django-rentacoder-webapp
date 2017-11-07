@@ -1,20 +1,18 @@
-function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+function readURL(input) {
 
-    // use the 1st file from the list
-    f = files[0];
-
+  if (input.files && input.files[0]) {
     var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#image-preview').attr('src', e.target.result);
+    };
 
-    // Closure to capture the file information.
-    reader.onload = (function(theFile) {
-        return function(e) {
-            document.getElementById('image-preview').src = e.target.result
-        };
-      })(f);
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 
-      // Read in the image file as a data URL.
-      reader.readAsText(f);
-  };
-
-document.getElementById('file-upload').addEventListener('change', handleFileSelect, false);
+$("#imgInp").change(function() {
+  readURL(this);
+});
+$("#file-upload").change(function() {
+    readURL(this);
+});
