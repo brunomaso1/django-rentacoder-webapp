@@ -1,21 +1,117 @@
 {% extends 'views/base.html' %}
 {% load bootstrap3 %}
 
-{% block title %}{{ user.username }}'s Profile{% endblock title %}
+{% block title %}Your Profile{% endblock title %}
+{% block stylesheets %}
+{{ block.super }}
+<!-- Custom styles for this template -->
+<link href="/static/css/portal.css" rel="stylesheet"/>
+<link href="/static/css/profile.css" rel="stylesheet"/>
+{% endblock stylesheets %}
 
 {% block content %}
-    <div class="container col-md-6 col-md-offset-3">
-        <div class="panel panel-primary">
-            <div class="panel-heading"><b>{{ user.username }}'s Profile</b></div>
-            <div class="panel-body">
-                <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                        Save
-                    </button>
-                </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 padding-top-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h4><span class="fa fa-book" style="margin-right: 5px;"></span> Your Profile</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <!-- left column -->
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="text-center">
+                                    <img src="/media/{{ user.avatar }}"
+                                         class="avatar img-circle img-thumbnail image-preview" style="width: 350px; height: 350px;"
+                                         alt="avatar">
+                                    <h6>Upload a different photo...</h6>
+                                    <label for="file-upload" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-cloud-upload"></i> Upload
+                                    </label>
+                                    <input id="file-upload" class="image-preview-input" accept="image/png, image/jpeg, image/gif"
+                                           name="{{ form.avatar.html_name }}" type="file"/>
+                                </div>
+                            </div>
+                            <!-- edit form column -->
+                            <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                                <div class="row">
+                                    <div class=" col-sm-12 center-block">
+                                        <h4>Edit your profile:</h4>
+                                    </div>
+                                </div>
+                                {% if messages %}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {% for message in messages %}
+                                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                        <div class="alert alert-success alert-dismissable" role="alert">
+                                        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></span>
+                                            {{ message }}
+                                        </div>
+                                        {% else %}
+                                        <div class="alert alert-danger alert-dismissable" role="alert">
+                                        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></span>
+                                            {{ message }}
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-md-12 form-div">
+                                        {% csrf_token %}
+                                        <label for="FirstName">First Name:</label>
+                                        <input type="text" id="firstName" name="{{ form.first_name.html_name }}"
+                                               class="form-control" value="{{user.first_name}}" required>
+                                        <label for="LastName">Last Name:</label>
+                                        <input type="text" id="LastName" name="{{ form.last_name.html_name }}"
+                                               class="form-control" value="{{user.last_name}}" required>
+                                        <label for="Email">Email:</label>
+                                        <input type="text" id="Email" name="{{ form.email.html_name }}"
+                                               class="form-control" value="{{user.email}}" required>
+                                        <label for="Technologies">Technologies:</label>
+                                        <div id="Technologies">
+                                            {{form.technologies}}
+                                        </div>
+                                        <div class="form-group padding-top-5 bottom-align-text">
+                                            {% buttons %}
+                                            <div class="col-md-5 col-md-offset-8 ">
+                                                <button type="button" onclick="window.history.back()"
+                                                        class="btn btn-md btn-default submit_button">
+                                                    Cancel
+                                                </button>
+                                                <span></span>
+                                                <button type="submit"
+                                                        class="btn btn-md btn-primary submit_button">
+                                                    Update
+                                                </button>
+                                            </div>
+                                            {% endbuttons %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
+
+{% block javascript_footer %}
+{{block.super}}
+<script src="/static/js/profile.js"></script>
+{% endblock javascript_footer %}

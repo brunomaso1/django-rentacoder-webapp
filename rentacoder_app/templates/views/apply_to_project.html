@@ -13,55 +13,55 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" action="{% url 'apply' project.id %}" method="POST">
-                    <fieldset>
-                        <div class="row">
-                            <div class=" col-sm-12 center-block">
-                                <h4>Fill the following data to apply to the project:</h4>
-                            </div>
-                        </div>
-                        {% if messages %}
-                        <div class="row">
-                            <div class="col-sm-12">
-                                {% for message in messages %}
-                                <div class="alert alert-danger alert-dismissable" role="alert">
+                <div class="row">
+                    <div class=" col-sm-12 center-block">
+                        <h4>Fill the following data to apply to the project:</h4>
+                    </div>
+                </div>
+                {% if messages %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissable" role="alert">
                                     <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></span>
-                                    {{ message }}
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-12 form-div">
+                        <form class="register_form form-vertical" action="{% url 'apply' project.id %}"
+                              method="POST">
+                            {% csrf_token %}
+                            <label for="money">Money:</label>
+                            <input type="text" id="money" name="{{ form.money.html_name }}"
+                                   class="form-control" placeholder="How much money?" required autofocus>
+                            <label for="hours">Hours:</label>
+                            <input type="text" id="hours" name="{{ form.hours.html_name }}"
+                                   class="form-control" placeholder="How many hours?" required>
+                            <label for="message">Message:</label>
+                            <textarea class="form-control" name="{{ form.message.html_name }}"
+                                      placeholder="Some message?" id="message" rows="10"></textarea>
+                            <div class="form-group padding-top-5">
+                                {% buttons %}
+                                <div class="col-md-5 col-md-offset-8">
+                                    <button type="button" onclick="window.history.back()"
+                                            class="btn btn-md btn-default submit_button">
+                                        Cancel
+                                    </button>
+                                    <span></span>
+                                    <button type="submit" class="btn btn-md btn-primary submit_button">
+                                        Apply
+                                    </button>
                                 </div>
-                                {% endfor %}
+                                {% endbuttons %}
                             </div>
-                        </div>
-                        {% endif %}
-                        <div class="row">
-                            <div class="col-md-12 form-div">
-                                <form class="register_form form-vertical" action="{% url 'apply' project.id %}"
-                                      method="POST">
-                                    {% csrf_token %}
-                                    <label for="money">Money:</label>
-                                    <input type="text" id="money" name="{{ form.money.html_name }}"
-                                           class="form-control" placeholder="How much money?" required autofocus>
-                                    <label for="hours">Money:</label>
-                                    <input type="text" id="hours" name="{{ form.hours.html_name }}"
-                                           class="form-control" placeholder="How many hours?" required>
-                                    <label for="message">Message:</label>
-                                    <textarea class="form-control" name="{{ form.message.html_name }}" placeholder="Some message?" id="message" rows="10"></textarea>
-                                    {% buttons %}
-                                    <div class="btn-group pull-right padding-top-5">
-                                        <button type="button" onclick="window.history.back()"
-                                                class="btn btn-lg btn-default submit_button">
-                                            Cancel
-                                        </button>
-                                        <button type="submit" class="btn btn-lg btn-success submit_button">
-                                            Apply
-                                        </button>
-                                    </div>
-                                    {% endbuttons %}
-                                </form>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -65,18 +65,24 @@ def my_projects(request):
 @login_required
 def profile(request):
     form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user)
+    user = request.user
+    context = {
+        "form": form,
+        "userTechnologies": user.technologies.all()
+    }
     if request.method == GET:
-        return render(request, 'views/profile.html', {'form': form})
+        return render(request, 'views/profile.html', context)
     elif request.method == POST:
         if form.is_valid():
             log.info("Updating user {}".format(request.user.username))
             form.save()
+            messages.success(request, 'User updated successfully')
             return redirect(reverse('profile'))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
 
-    return render(request, 'views/edit_project.html', {'form': form})
+    return render(request, 'views/edit_project.html', context)
 
 
 @login_required
