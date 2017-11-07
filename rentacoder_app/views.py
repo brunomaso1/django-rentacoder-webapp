@@ -353,3 +353,17 @@ def scores(request):
         "owner_scores": ProjectScore.objects.filter(project__user=request.user),
     }
     return render(request, 'views/scores.html', context)
+
+@login_required
+def applications(request):
+    context = {
+        "applications": JobOffer.objects.filter(user=request.user)
+    }
+    return render(request, 'views/applications.html', context)
+
+@login_required
+def history(request):
+    context = {
+        "projects": Project.objects.filter(user=request.user, closed=True)
+    }
+    return render(request, 'views/history.html', context)

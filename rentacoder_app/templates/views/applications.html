@@ -1,0 +1,8 @@
+{% extends 'views/base.html' %}
+
+{% for application in applications %}
+    {{ application.hours }}<br>
+    ${{ application.money }}<br>
+    {{ application.message }}<br>
+    <hr>
+{% endfor %}

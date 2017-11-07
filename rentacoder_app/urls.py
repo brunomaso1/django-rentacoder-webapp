@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^projects/(?P<pk>[0-9]+)/questions/(?P<question_id>[0-9]+)$', views.answer_question, name='answer_question'),
     url(r'^projects/(?P<pk>[0-9]+)/accept_job_offer/(?P<offer_id>[0-9]+)$', views.accept_job_offer, name='accept_job_offer'),
 
+    url(r'^applications/$', views.applications, name='my_applications'),
+
     url(r'^scores/$', views.scores, name='scores'),
+
+    url(r'^history/$', views.history, name='history'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

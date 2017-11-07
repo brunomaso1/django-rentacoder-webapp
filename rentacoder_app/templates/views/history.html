@@ -1,0 +1,5 @@
+{% extends 'views/base.html' %}
+
+{% for project in closed_projects %}
+    {{ project.name }}<br>
+{% endfor %}
