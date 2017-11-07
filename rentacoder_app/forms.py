@@ -33,7 +33,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'technologies', 'avatar')
-
+        widgets = {
+            'technologies': forms.CheckboxSelectMultiple()
+        }
 
 class RegisterForm(forms.Form):
     """

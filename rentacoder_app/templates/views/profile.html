@@ -7,6 +7,7 @@
 <!-- Custom styles for this template -->
 <link href="/static/css/portal.css" rel="stylesheet"/>
 <link href="/static/css/profile.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 {% endblock stylesheets %}
 
 {% block content %}
@@ -30,9 +31,9 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="text-center">
                                     <img src="/media/{{ user.avatar }}"
-                                         class="avatar img-circle img-thumbnail image-preview" style="width: 350px; height: 350px;"
+                                         class="avatar img-circle img-thumbnail" id="image-preview" style="width: 350px; height: 350px;"
                                          alt="avatar">
-                                    <h6>Upload a different photo...</h6>
+                                    <h6>Upload a different photo of 350x350...</h6>
                                     <label for="file-upload" class="btn btn-primary btn-sm">
                                         <i class="fa fa-cloud-upload"></i> Upload
                                     </label>
@@ -82,7 +83,9 @@
                                                class="form-control" value="{{user.email}}" required>
                                         <label for="Technologies">Technologies:</label>
                                         <div id="Technologies">
-                                            {{form.technologies}}
+                                            {% for tech in form.technologies %}
+                                                {{tech}}
+                                            {% endfor %}
                                         </div>
                                         <div class="form-group padding-top-5 bottom-align-text">
                                             {% buttons %}
@@ -113,5 +116,6 @@
 
 {% block javascript_footer %}
 {{block.super}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="/static/js/profile.js"></script>
 {% endblock javascript_footer %}

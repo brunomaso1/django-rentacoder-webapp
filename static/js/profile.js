@@ -1,21 +1,20 @@
-$(function() {
-    // Create the preview image
-    $(".image-preview-input input:file").change(function (){
-        var img = $('<img/>', {
-            id: 'dynamic',
-            width:250,
-            height:200
-        });
-        var file = this.files[0];
-        var reader = new FileReader();
-        // Set preview image into the popover data-content
-        reader.onload = function (e) {
-            $(".image-preview-input-title").text("Change");
-            $(".image-preview-clear").show();
-            $(".image-preview-filename").val(file.name);
-            img.attr('src', e.target.result);
-            $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
-        }
-        reader.readAsDataURL(file);
-    });
-});
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // use the 1st file from the list
+    f = files[0];
+
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+        return function(e) {
+            document.getElementById('image-preview').src = e.target.result
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsText(f);
+  };
+
+document.getElementById('file-upload').addEventListener('change', handleFileSelect, false);
