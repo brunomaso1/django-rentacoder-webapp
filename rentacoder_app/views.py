@@ -26,7 +26,7 @@ POST = 'POST'
 
 @login_required
 def portal(request):
-    projects_last_all = Project.objects.order_by('-id')
+    projects_last_all = Project.objects.filter(closed=False).order_by('-id')
     page = request.GET.get('page', 1)
 
     paginator_last = Paginator(projects_last_all, 5)
@@ -45,7 +45,7 @@ def portal(request):
 
 @login_required
 def my_projects(request):
-    projects_all = Project.objects.filter(user=request.user).order_by('-id')
+    projects_all = Project.objects.filter(user=request.user, closed=False).order_by('-id')
     page = request.GET.get('page', 1)
 
     paginator = Paginator(projects_all, 5)
