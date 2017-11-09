@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    {% for project in projectsAll %}
+                    {% for project in active_projects %}
                     <div class="row">
                         <!--
                         <div class="col-xs-3">
@@ -125,10 +125,12 @@
                     </div>
                     <hr class="line-style2">
                     {% empty %}
-                    <div class="inline-block">
-                        <center><h3>Sorry, you haven't create any project. </h3></center>
-                        <center><h4>Create one now!</h4></center>
-                        <center><a href="{% url 'new_project' %}">Click me</a></center>
+                    <div class="inline-block" style="text-align: center;">
+                        <h3>No active projects.</h3><br>
+                        <a href="{% url 'new_project' %}"><h4>Create one now!</h4></a><br>
+                        {% if closed_projects|length > 0 %}
+                            <h5>Or check your <a href="{% url 'history' %}">Project History</a></h5>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>

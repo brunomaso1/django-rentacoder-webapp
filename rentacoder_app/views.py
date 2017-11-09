@@ -45,19 +45,22 @@ def portal(request):
 
 @login_required
 def my_projects(request):
-    projects_all = Project.objects.filter(user=request.user, closed=False).order_by('-id')
+    projects = Project.objects.filter(user=request.user)
+    active_projects = projects.filter(closed=False).order_by('-id')
+    closed_projects = projects.filter(closed=True).order_by('-id')
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(projects_all, 5)
+    paginator = Paginator(active_projects, 5)
     try:
-        projects_all = paginator.page(page)
+        active_projects = paginator.page(page)
     except PageNotAnInteger:
-        projects_all = paginator.page(1)
+        active_projects = paginator.page(1)
     except EmptyPage:
-        projects_all = paginator.page(paginator.num_pages)
+        active_projects = paginator.page(paginator.num_pages)
 
     context = {
-        "projectsAll": projects_all,
+        "active_projects": active_projects,
+        "closed_projects": closed_projects
     }
     return render(request, 'views/my_projects.html', context)
 
@@ -376,5 +379,4 @@ def close_project(request, pk):
         project = Project.objects.get(pk=pk)
         project.closed = True
         project.save()
-       # return render(request, 'views/my_projects.html')
-        return redirect(reverse('project', kwargs={"pk": pk}))
+        return render(request, 'views/my_projects.html')
