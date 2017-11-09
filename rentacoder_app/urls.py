@@ -9,7 +9,8 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'views/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^register/$', views.register, name='register'),
-    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^profile/$', views.my_profile, name='my_profile'),
+    url(r'^profile/(?P<pk>[0-9]+)/$', views.user_profile, name='user_profile'),
 
     url(r'^(?P<token>[0-9a-f-]+)/$', views.validate_email, name='validate_email_token'),
     url(r'reset_password/$', views.reset_password, name='reset_password_post'),

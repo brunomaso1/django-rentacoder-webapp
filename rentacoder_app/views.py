@@ -66,7 +66,7 @@ def my_projects(request):
 
 
 @login_required
-def profile(request):
+def my_profile(request):
     form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user)
     user = request.user
     context = {
@@ -74,7 +74,7 @@ def profile(request):
         "userTechnologies": user.technologies.all()
     }
     if request.method == GET:
-        return render(request, 'views/profile.html', context)
+        return render(request, 'views/my_profile.html', context)
     elif request.method == POST:
         if form.is_valid():
             log.info("Updating user {}".format(request.user.username))
@@ -85,7 +85,17 @@ def profile(request):
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
 
-    return render(request, 'views/profile.html', context)
+    return render(request, 'views/my_profile.html', context)
+
+
+@login_required
+def user_profile(request, pk):
+    user = User.objects.get(pk=pk)
+    context = {
+        "profile": user,
+        "userTechnologies": user.technologies.all()
+    }
+    return render(request, 'views/user_profile.html', context)
 
 
 @login_required

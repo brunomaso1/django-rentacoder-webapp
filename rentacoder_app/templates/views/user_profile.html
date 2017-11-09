@@ -1,0 +1,29 @@
+{% extends 'views/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}Your Profile{% endblock title %}
+{% block stylesheets %}
+{{ block.super }}
+<!-- Custom styles for this template -->
+<link href="/static/css/portal.css" rel="stylesheet"/>
+<link href="/static/css/profile.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 padding-top-5">
+            <div class="panel panel-primary">
+                {{ profile.username }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript_footer %}
+{{block.super}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="/static/js/profile.js"></script>
+{% endblock javascript_footer %}
