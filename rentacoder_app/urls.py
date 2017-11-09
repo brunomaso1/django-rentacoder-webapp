@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^scores/$', views.scores, name='scores'),
 
     url(r'^history/$', views.history, name='history'),
+    url(r'^projects/(?P<pk>[0-9]+)/close/$', views.close_project, name='close_project'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
