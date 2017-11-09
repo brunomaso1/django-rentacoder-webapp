@@ -1,5 +1,45 @@
 {% extends 'views/base.html' %}
 
-{% for project in closed_projects %}
-    {{ project.name }}<br>
-{% endfor %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 padding-top-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h4><span class="fa fa-book" style="margin-right: 5px;"></span>Your Closed Projects</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% for project in projects %}
+                        <div class="row">
+                            <div class="col-xs-11 mycontent-right">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong><a
+                                                href="{% url 'project' project.pk %}">{{ project.title }}</a></strong>
+                                        </h4>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <p class="sumary-last-projects">{{ project.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="line-style2">
+                    {% empty %}
+                        <div class="inline-block" style="text-align: center;">
+                            <h3>No closed projects.</h3><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
