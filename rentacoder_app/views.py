@@ -367,3 +367,14 @@ def history(request):
         "projects": Project.objects.filter(user=request.user, closed=True)
     }
     return render(request, 'views/history.html', context)
+
+@login_required
+def close_project(request, pk):
+    if request.method == POST:
+        log.info("Attempting to close project  {} by user {} - Request: {}".
+                 format(pk, request.user, request.POST))
+        project = Project.objects.get(pk=pk)
+        project.closed = True
+        project.save()
+       # return render(request, 'views/my_projects.html')
+        return redirect(reverse('project', kwargs={"pk": pk}))
