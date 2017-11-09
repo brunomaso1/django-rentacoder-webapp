@@ -8,7 +8,7 @@ class NewProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        exclude = ('user',)
+        exclude = ('user', 'closed')
 
 
 class ApplyToProjectForm(forms.ModelForm):

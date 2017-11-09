@@ -142,6 +142,7 @@ def project(request, pk):
         "question_form": ProjectQuestionForm(),
         "answer_form": AnswerQuestionForm(),
         "already_applied": job_offers.filter(user=request.user).exists(),
+        "accepted": job_offers.filter(user=request.user, accepted=True).exists(),
     }
     return render(request, 'views/project.html', context)
 

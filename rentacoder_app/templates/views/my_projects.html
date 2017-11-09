@@ -90,27 +90,22 @@
 
                                 <div class="col-xs-4">
                                     <div class="btn btn-group">
-                                        <button class="btn btn-primary btn-sm" onclick="location.href='{% url 'apply' project.pk %}'"><i class="fa fa-check-circle-o"
-                                                                                  aria-hidden="true"
-                                                                                  title="Apply"></i>
-                                        </button>
                                         {% if request.user == project.user %}
-                                        <button class="btn btn-danger btn-sm" onclick="location.href='{% url 'edit' project.pk %}'"><i class="fa fa-pencil"
-                                                                                  aria-hidden="true"
-                                                                                  title="Edit"></i></button>
+                                        <button class="btn btn-primary btn-sm" onclick="location.href='{% url 'edit' project.pk %}'">
+                                            <i class="fa fa-pencil" aria-hidden="true" title="Edit">
+                                                Edit
+                                            </i></button>
                                         {% endif %}
-                                        <button class="btn btn-secondary btn-sm"><i class="heart fa fa-heart-o"
-                                                                                    aria-hidden="true"
-                                                                                    title="Add Favorite"></i>
-                                        </button>
                                         {% if not project.closed %}
                                             <form action="{% url 'close_project' project.id %}"
                                                   method="POST">
                                                 {% csrf_token %}
-                                                   <button class="btn btn-info btn-sm" type="submit">
+                                                   <button class="btn btn-danger btn-sm" type="submit">
                                                        <i class="fa fa-window-close-o"
                                                           aria-hidden="true"
-                                                          title="Close"></i>
+                                                          title="Close">
+                                                           Close
+                                                       </i>
                                                    </button>
                                             </form>
                                         {% endif %}
