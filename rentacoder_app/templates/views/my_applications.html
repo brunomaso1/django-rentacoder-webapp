@@ -1,0 +1,71 @@
+{% extends 'views/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 padding-top-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h4><span class="fa fa-book" style="margin-right: 5px;"></span>Your Applications
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        {% if applications %}
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Hours</th>
+                                    <th>Money</th>
+                                    <th>Message</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for application in applications %}
+                                    <tr>
+                                        <td><a href="{% url 'project' application.project.pk %}">
+                                            {{ application.project.title }}</a>
+                                        </td>
+                                        <td>{{ application.hours }}</td>
+                                        <td>{{ application.money }}</td>
+                                        <td>{{ application.message }}</td>
+                                        {% if application.accepted %}
+                                            {% if application.project.closed %}
+                                                <td><span class="btn btn-block disabled pull-right"
+                                                          style="background-color:darkgreen; color: white;">Accepted & Closed</span>
+                                                    {% else %}
+                                                <td>
+                                                <span class="btn btn-success btn-block disabled pull-right">Accepted</span>
+                                            {% endif %}
+                                        {% else %}
+                                        {% if application.project.closed %}
+                                            <td><span class="btn btn-danger btn-block disabled pull-right">Closed</span>
+                                            </td>
+                                        {% else %}
+                                            <td><span
+                                                    class="btn btn-warning btn-block disabled pull-right">Pending</span>
+                                            </td>
+                                        {% endif %}
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="inline-block" style="text-align: center;">
+                                <h3>No applications.</h3><br>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

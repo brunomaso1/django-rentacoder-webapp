@@ -362,7 +362,7 @@ def applications(request):
     context = {
         "applications": JobOffer.objects.filter(user=request.user)
     }
-    return render(request, 'views/applications.html', context)
+    return render(request, 'views/my_applications.html', context)
 
 @login_required
 def history(request):
@@ -380,3 +380,4 @@ def close_project(request, pk):
         project.closed = True
         project.save()
         return render(request, 'views/my_projects.html')
+
