@@ -5,6 +5,7 @@ from uuid import uuid4
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction, IntegrityError
+from django.db.models import Q
 from django.utils import timezone
 
 import rentacoder_app.constants as const
@@ -282,6 +283,14 @@ class ProjectScore(models.Model):
 
     class Meta:
         db_table = "project_score"
+
+    @staticmethod
+    def get_pending_scores_for_user(user):
+        return ProjectScore.objects.filter(Q(coder=user, owner_score=0) | Q(project__user=user, coder_score=0))
+
+    @staticmethod
+    def get_num_pending_scores_for_user(user):
+        return int(ProjectScore.get_pending_scores_for_user(user).count())
 
 
 class ProjectQuestion(models.Model):

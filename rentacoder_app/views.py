@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.db.models import Q
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import loader
@@ -13,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .forms import ResetPasswordForm, RegisterForm, NewProjectForm, ApplyToProjectForm, UserProfileForm, \
-    ProjectQuestionForm, AnswerQuestionForm
+    ProjectQuestionForm, AnswerQuestionForm, ScoreForm
 from .models import User, Project, Technology, ProjectQuestion, JobOffer, ProjectScore
 from .views_helper import verify_registration_token
 import rentacoder_app.errors as err
@@ -352,19 +351,15 @@ def accept_job_offer(request, pk, offer_id):
         offer = JobOffer.objects.get(pk=offer_id)
         offer.accepted = True
         offer.save()
-
-        # Create a pending score instance.
-        # These should really be created when the project "ends", but for simplicity of testing we'll let do it earlier
-        ProjectScore.objects.create(project_id=pk, coder=offer.user)
-
         return redirect(reverse('project', kwargs={"pk": pk}))
 
 @login_required
 def scores(request):
     context = {
-        "pending_scores": ProjectScore.objects.filter(Q(coder=request.user) | Q(project__user=request.user)),
+        "pending_scores": ProjectScore.get_pending_scores_for_user(request.user),
         "coder_scores": ProjectScore.objects.filter(coder=request.user),
         "owner_scores": ProjectScore.objects.filter(project__user=request.user),
+        "score_form": ScoreForm()
     }
     return render(request, 'views/scores.html', context)
 
@@ -378,7 +373,7 @@ def applications(request):
 @login_required
 def history(request):
     context = {
-        "projects": Project.objects.filter(user=request.user, closed=True)
+        "projects": Project.objects.filter(user=request.user, closed=True).order_by("-id")
     }
     return render(request, 'views/history.html', context)
 
@@ -390,5 +385,23 @@ def close_project(request, pk):
         project = Project.objects.get(pk=pk)
         project.closed = True
         project.save()
+
+        # Create pending score instances for each coder
+        for accepted_offer in project.joboffer_set.filter(accepted=True):
+            ProjectScore.objects.create(project_id=pk, coder=accepted_offer.user)
+
         return render(request, 'views/my_projects.html')
 
+
+def score_coder(request, pk):
+    score_object = ProjectScore.objects.get(pk=pk)
+    score_object.coder_score = request.POST.get('score')
+    score_object.save()
+    return redirect(reverse('scores'))
+
+
+def score_owner(request, pk):
+    score_object = ProjectScore.objects.get(pk=pk)
+    score_object.owner_score = request.POST.get('score')
+    score_object.save()
+    return redirect(reverse('scores'))

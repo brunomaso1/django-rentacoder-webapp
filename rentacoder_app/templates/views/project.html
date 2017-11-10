@@ -84,13 +84,16 @@
                                             <button type="button" data-toggle="tooltip"
                                                     title="Can't edit once people have applied for the project!"
                                                     class="btn btn-primary disabled">
+                                                Unable to Edit
                                             </button>
                                         {% endif %}
 
                                         <form action="{% url 'close_project' project.id %}" method="POST">
                                             {% csrf_token %}
                                             <button type="submit" style="margin-top: 5px;"
-                                                    class="btn btn-primary btn-danger btn-block submit_button">
+                                                    class="btn btn-primary btn-danger btn-block submit_button"
+                                                    data-toggle="tooltip"
+                                                    title="This will finish the project and allow Scoring!">
                                                 <i class="glyphicon glyphicon-remove-circle"></i>
                                                 Close
                                             </button>

@@ -28,6 +28,14 @@ class AnswerQuestionForm(forms.ModelForm):
         model = ProjectQuestion
         fields = ('answer',)
 
+class HorizontalRadioSelect(forms.RadioSelect):
+    template_name = 'views/horizontal_select.html'
+
+class ScoreForm(forms.Form):
+    CHOICES = (('1', 'One',), ('2', 'Two',), ('3', 'Three',), ('4', 'Four',), ('5', 'Five',))
+
+    score = forms.ChoiceField(widget=HorizontalRadioSelect, choices=CHOICES)
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

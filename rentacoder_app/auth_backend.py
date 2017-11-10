@@ -1,4 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
+from rentacoder_app.models import ProjectScore
 
 
 class UserModelBackend(ModelBackend):
@@ -11,7 +12,8 @@ def processor(request):
     if request.user.is_authenticated():
         return {
             'authenticated': True,
-            'user': request.user
+            'user': request.user,
+            'num_pending_scores': ProjectScore.get_num_pending_scores_for_user(request.user),
         }
     else:
         return {

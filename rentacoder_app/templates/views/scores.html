@@ -21,9 +21,26 @@
                             {% for score in pending_scores %}
                                 {% if score.coder == user %}
                                     <h4>Rate Project Owner {{ score.project.user }} of Project {{ score.project.title }}: </h4>
+
+                                    <form class="register_form form-vertical" action="{% url 'score_owner' score.id %}" method="POST">
+                                        {% csrf_token %}
+                                        {{ score_form.score }}
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                                            Submit
+                                        </button>
+                                    </form>
+
                                 {% else %}
                                     <h4>Rate <b>{{ score.coder }}</b> performance as Coder in Project
-                                        <i>{{ score.project.title }}</i>: </h4>
+                                        <i>{{ score.project.title }}</i>:</h4>
+
+                                    <form class="register_form form-vertical" action="{% url 'score_coder' score.id %}" method="POST">
+                                        {% csrf_token %}
+                                        {{ score_form.score }}
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
+                                            Submit
+                                        </button>
+                                    </form>
                                 {% endif %}
                             {% empty %}
                                 <h4>No Scoring is pending</h4>

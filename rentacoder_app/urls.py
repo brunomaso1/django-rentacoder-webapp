@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^applications/$', views.applications, name='my_applications'),
 
     url(r'^scores/$', views.scores, name='scores'),
+    url(r'^scores/coder/(?P<pk>[0-9]+)$', views.score_coder, name='score_coder'),
+    url(r'^scores/owner/(?P<pk>[0-9]+)$', views.score_owner, name='score_owner'),
 
     url(r'^history/$', views.history, name='history'),
     url(r'^projects/(?P<pk>[0-9]+)/close/$', views.close_project, name='close_project'),

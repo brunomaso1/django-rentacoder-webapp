@@ -57,7 +57,11 @@
                 <li><a href="{% url 'new_project' %}">New Project</a></li>
                 <li><a href="{% url 'my_projects' %}">My Projects</a></li>
                 <li><a href="{% url 'my_applications' %}">My Applications</a></li>
-                <li><a href="{% url 'scores' %}">Scores</a></li>
+                {% if num_pending_scores > 0 %}
+                    <li><a href="{% url 'scores' %}">Scores<span class="badge">{{ num_pending_scores }}</span></a></li>
+                {% else %}
+                    <li><a href="{% url 'scores' %}">Scores</a></li>
+                {% endif %}
                 <li><a href="{% url 'history' %}">History</a></li>
             </ul>
             <!--
