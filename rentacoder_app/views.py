@@ -397,6 +397,7 @@ def score_coder(request, pk):
     score_object = ProjectScore.objects.get(pk=pk)
     score_object.coder_score = request.POST.get('score')
     score_object.save()
+    log.info("Owner {} rated Coder {}: {}".format(request.user, score_object.coder, score_object.coder_score))
     return redirect(reverse('scores'))
 
 
@@ -404,4 +405,5 @@ def score_owner(request, pk):
     score_object = ProjectScore.objects.get(pk=pk)
     score_object.owner_score = request.POST.get('score')
     score_object.save()
+    log.info("Coder {} rated Owner {}: {}".format(request.user, score_object.project.user, score_object.owner_score))
     return redirect(reverse('scores'))

@@ -15,69 +15,86 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <h3>Pending:</h3>
-                            {% for score in pending_scores %}
-                                {% if score.coder == user %}
-                                    <h4>Rate Project Owner {{ score.project.user }} of Project {{ score.project.title }}: </h4>
+                    <div class="panel-body text-center">
+                        <h3>Pending:</h3>
+                        {% for score in pending_scores %}
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    {% if score.coder == user %}
+                                        <h4>Rate Project Owner {{ score.project.user }} of
+                                            Project {{ score.project.title }}: </h4>
+                                        <form class="register_form form-vertical"
+                                              action="{% url 'score_owner' score.id %}"
+                                              method="POST">
+                                            {% csrf_token %}
+                                            {{ score_form.score }}
+                                            <button type="submit" class="btn btn-primary center-block">
+                                                Submit
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <h4>Rate Coder <b>{{ score.coder }}</b> in Project
+                                            <i>{{ score.project.title }}</i>:</h4>
 
-                                    <form class="register_form form-vertical" action="{% url 'score_owner' score.id %}" method="POST">
-                                        {% csrf_token %}
-                                        {{ score_form.score }}
-                                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                                            Submit
-                                        </button>
-                                    </form>
-
-                                {% else %}
-                                    <h4>Rate <b>{{ score.coder }}</b> performance as Coder in Project
-                                        <i>{{ score.project.title }}</i>:</h4>
-
-                                    <form class="register_form form-vertical" action="{% url 'score_coder' score.id %}" method="POST">
-                                        {% csrf_token %}
-                                        {{ score_form.score }}
-                                        <button type="submit" class="btn btn-lg btn-primary btn-block submit_button">
-                                            Submit
-                                        </button>
-                                    </form>
-                                {% endif %}
-                            {% empty %}
-                                <h4>No Scoring is pending</h4>
-                            {% endfor %}
-                            <h3>As Coder:</h3>
-                            {% for score in coder_scores %}
-                                {% if score.owner_score > 0 and coder_score > 0 %}
-                                    <!--show full score-->
-                                    Coder: {{ score.coder_score }}<br>
-                                    Owner: {{ score.owner_score }}
-                                {% else %}
-                                    <!--show pending scores-->
-                                    Coder: {{ score.coder_score }} (TODO: Input here)<br>
-                                    Owner: Pending
-                                {% endif %}
-                            {% empty %}
-                                <h5>You have no scores yet.</h5>
-                            {% endfor %}
-
-                            <h3>As Project Owner:</h3>
-                            {% for score in owner_scores %}
-                                {% if score.owner_score > 0 and coder_score > 0 %}
-                                    <!--show full score-->
-                                    Coder: {{ score.coder_score }}<br>
-                                    Owner: {{ score.owner_score }}
-                                {% else %}
-                                    <!--show pending score-->
-                                    Coder: Pending<br>
-                                    Owner: {{ score.owner_score }} (TODO: Input here)<br>
-                                {% endif %}
-                            {% empty %}
-                                <h5>You have no scores yet.</h5>
-                            {% endfor %}
-                        </div>
+                                        <form class="register_form form-vertical"
+                                              action="{% url 'score_coder' score.id %}"
+                                              method="POST">
+                                            {% csrf_token %}
+                                            {{ score_form.score }}
+                                            <button type="submit" class="btn btn-primary center-block">
+                                                Submit
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <h4>You have no pending scores.</h4>
+                        {% endfor %}
+                        <hr>
+                        <h3>As Coder:</h3>
+                        {% for score in coder_scores %}
+                            Project: <b>{{ score.project.title }}</b><br>
+                            {% if score.owner_score > 0 and score.coder_score > 0 %}
+                                <!--show full score-->
+                                Project Owner {{ score.project.us }} rated you: {{ score.coder_score }}<br>
+                                Your score for {{ score.project.user }} was: {{ score.owner_score }}
+                            {% elif score.owner_score > 0 %}
+                                <!--show pending score-->
+                                You need to rate Coder {{ score.coder }} to see this score.<br>
+                            {% else %}
+                                <!--show pending score-->
+                                Project Owner {{ score.project.user }} hasn't rated you yet.<br>
+                                Your score for {{ score.project.user }} was: {{ score.owner_score }}
+                            {% endif %}
+                            <hr>
+                        {% empty %}
+                            <h5>You have no scores yet.</h5>
+                        {% endfor %}
+                        <hr>
+                        <h3>As Project Owner:</h3>
+                        {% for score in owner_scores %}
+                            Project: <b>{{ score.project.title }}</b><br>
+                            {% if score.owner_score > 0 and score.coder_score > 0 %}
+                                <!--show full score-->
+                                Coder {{ score.coder }} rated you: {{ score.owner_score }}<br>
+                                Your score for {{ score.coder }} was: {{ score.coder_score }}
+                            {% elif score.owner_score > 0 %}
+                                <!--show pending score-->
+                                You need to rate Owner {{ score.coder }} to see this score.<br>
+                            {% else %}
+                                <!--show pending score-->
+                                Coder {{ score.coder }} hasn't rated you yet.<br>
+                                Your score for {{ score.coder }} was: {{ score.coder_score }}
+                            {% endif %}
+                            <hr>
+                        {% empty %}
+                            <h5>You have no scores yet.</h5>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
