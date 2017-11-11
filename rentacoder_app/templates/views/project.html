@@ -120,7 +120,7 @@
                             </td>
                         </tr>
                     {% else %}
-                        {% if project.user != user %}
+                        {% if project.user != user and not project.closed %}
                             <tr>
                                 <td style="border-top: none;">
                                     <div class="col-md-8 col-md-offset-2 text-center">
@@ -128,7 +128,7 @@
                                             <button type="submit"
                                                     class="btn btn-md btn-primary btn-block submit_button">
                                                 <i class="glyphicon glyphicon-ok"></i>
-                                                Apply for this Project
+                                                Apply to this Project
                                             </button>
                                         </form>
                                     </div>
