@@ -60,7 +60,10 @@
                             </table>
                         {% else %}
                             <div class="inline-block" style="text-align: center;">
-                                <h3>No applications.</h3><br>
+                                <h3>No applications.</h3>
+                                <a href="{% url 'portal' %}"><h4 style="margin-top: 25px;">
+                                    Apply to a Project now!</h4>
+                                </a><br>
                             </div>
                         {% endif %}
                     </div>
