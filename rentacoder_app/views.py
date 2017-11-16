@@ -79,7 +79,7 @@ def my_profile(request):
             log.info("Updating user {}".format(request.user.username))
             form.save()
             messages.success(request, 'User updated successfully')
-            return redirect(reverse('profile'))
+            return redirect(reverse('views/my_profile.html'))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
@@ -92,7 +92,7 @@ def user_profile(request, pk):
     user = User.objects.get(pk=pk)
     context = {
         "profile": user,
-        "userTechnologies": user.technologies.all()
+        "profileTechnologies": user.technologies.all()
     }
     return render(request, 'views/user_profile.html', context)
 
