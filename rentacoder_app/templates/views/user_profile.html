@@ -9,13 +9,73 @@
 <link href="/static/css/profile.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 {% endblock stylesheets %}
-
+{{profile.username}}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-12 padding-top-5">
             <div class="panel panel-primary">
-                {{ profile.username }}
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h4><span class="fa fa-book" style="margin-right: 5px;"></span> User Profile </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="text-center">
+                                <img src="/media/{{ user.avatar }}"
+                                     class="avatar img-circle img-thumbnail" id="image-preview" style="width: 350px; height: 350px;"
+                                     alt="avatar">
+                            </div>
+                        </div>
+                        <!-- edit form column -->
+                        <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                            <div class="row">
+                                <div class=" col-sm-12 center-block">
+                                    <h4>Profile: {{profile.username}}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-div">
+                                    {% csrf_token %}
+                                    <label for="FirstName">First Name:</label>
+                                    <input type="text" id="firstName"
+                                           class="form-control" value="{{profile.first_name}}" readonly>
+                                    <label for="LastName">Last Name:</label>
+                                    <input type="text" id="LastName"
+                                           class="form-control" value="{{profile.last_name}}" readonly>
+                                    <label for="Email">Email:</label>
+                                    <input type="text" id="Email"
+                                           class="form-control" value="{{profile.email}}" readonly>
+                                    <label for="Technologies">Technologies:</label>
+                                    <div id="Technologies">
+                                        {% for tech in profileTechnologies %}
+                                            {{tech}}
+                                        {% empty%}
+                                        User has no technology.
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group padding-top-5 bottom-align-text">
+                                        {% buttons %}
+                                        <div class="col-md-5 col-md-offset-8 ">
+                                            <button type="button" onclick="window.history.back()"
+                                                    class="btn btn-md btn-default submit_button">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                        {% endbuttons %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
