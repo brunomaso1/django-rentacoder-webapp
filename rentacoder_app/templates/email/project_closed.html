@@ -1,15 +1,15 @@
 {% load static %}
 
-Dear {{ user_name }},
+Dear {{ user_name }},<br><br>
 
-Applications for Project {{ project.title }} have finished!
+Applications for Project {{ project.title }} have finished!<br>
 
 {% if offer.accepted %}
-    You were accepted and can now rate the project owner at {{ scores_url }}
+    You were accepted and can now rate the project owner at {{ scores_url }}<br><br>
 {% else %}
-    You were not accepted :(
+    You were not accepted :(<br><br>
 {% endif %}
 
-Sincerely,
+Sincerely,<br><br>
 
-Rent-A-Coder Team
+Rent-A-Coder Team<br><br>

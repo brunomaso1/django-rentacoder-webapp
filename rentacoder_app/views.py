@@ -221,8 +221,7 @@ def apply_to_project(request, pk):
                 except Exception as e:
                     log.exception("Problem sending email: {}".format(e))
 
-                # Send mail to user
-                project = Project.objects.get(pk=pk)
+                # Send mail to owner
                 html_message = loader.render_to_string(
                     'email/coder_applied_to_project.html',
                     {
