@@ -1,0 +1,15 @@
+{% load static %}
+
+Dear {{ user_name }},
+
+Applications for Project {{ project.title }} have finished!
+
+{% if offer.accepted %}
+    You were accepted and can now rate the project owner at {{ scores_url }}
+{% else %}
+    You were not accepted :(
+{% endif %}
+
+Sincerely,
+
+Rent-A-Coder Team
