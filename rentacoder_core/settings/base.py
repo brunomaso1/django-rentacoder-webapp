@@ -146,7 +146,7 @@ LOGGING = {
     },
     'loggers': {
         'rentacoder_app': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console', 'file', 'mail_admins'],
             'level': 'INFO',
             'propagate': True,
         }
