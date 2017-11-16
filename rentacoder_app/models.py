@@ -1,4 +1,5 @@
 import logging
+import urllib.parse
 from random import randint
 from uuid import uuid4
 
@@ -6,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction, IntegrityError
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 
 import rentacoder_app.constants as const
@@ -259,6 +261,8 @@ class Project(models.Model):
                                    start_date=date, end_date=date)
             next_id += 1
 
+    def get_url(self):
+        return urllib.parse.urljoin(settings.DOMAIN, reverse('project', kwargs={"pk": self.pk}))
 
 # Users can post JobOffers for a Project
 class JobOffer(models.Model):
@@ -292,6 +296,9 @@ class ProjectScore(models.Model):
     def get_num_pending_scores_for_user(user):
         return int(ProjectScore.get_pending_scores_for_user(user).count())
 
+    @staticmethod
+    def get_url():
+        return urllib.parse.urljoin(settings.DOMAIN, reverse('scores'))
 
 class ProjectQuestion(models.Model):
     project = models.ForeignKey('Project')

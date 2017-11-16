@@ -202,10 +202,11 @@ def apply_to_project(request, pk):
                 # Send mail to user
                 project = Project.objects.get(pk=pk)
                 html_message = loader.render_to_string(
-                    'email/applied_to_project.html',
+                    'email/you_applied_to_project.html',
                     {
                         'user_name': request.user.username,
                         'project': project,
+                        'project_url': project.get_url()
                     }
                 )
                 try:
@@ -219,6 +220,31 @@ def apply_to_project(request, pk):
                     )
                 except Exception as e:
                     log.exception("Problem sending email: {}".format(e))
+
+                # Send mail to user
+                project = Project.objects.get(pk=pk)
+                html_message = loader.render_to_string(
+                    'email/coder_applied_to_project.html',
+                    {
+                        'user_name': project.user.username,
+                        'coder_name': request.user.username,
+                        'project': project,
+                        'project_url': project.get_url()
+                    }
+                )
+                try:
+                    send_mail(
+                        subject="Coder Applied to Project {}!".format(project.title),
+                        message='',
+                        from_email='',
+                        recipient_list=(project.user.email,),
+                        fail_silently=False,
+                        html_message=html_message
+                    )
+                except Exception as e:
+                    log.exception("Problem sending email: {}".format(e))
+
+
                 return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
@@ -239,6 +265,30 @@ def send_question(request, pk):
             question.user_id = request.user.pk
             question.project_id = pk
             question.save()
+
+            # Send mail to owner
+            project = Project.objects.get(pk=pk)
+            html_message = loader.render_to_string(
+                'email/question_asked.html',
+                {
+                    'user_name': project.user.username,
+                    'project': project,
+                    'project_url': project.get_url()
+                }
+            )
+            try:
+                send_mail(
+                    subject="Someone asked something in Project {}!".format(project.title),
+                    message='',
+                    from_email='',
+                    recipient_list=(project.user.email,),
+                    fail_silently=False,
+                    html_message=html_message
+                )
+            except Exception as e:
+                log.exception("Problem sending email: {}".format(e))
+
+
             return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
@@ -255,6 +305,29 @@ def answer_question(request, pk, question_id):
             question = ProjectQuestion.objects.get(pk=question_id)
             question.answer = form.cleaned_data.get('answer')
             question.save()
+
+            # Send mail to whoever asked the question
+            project = Project.objects.get(pk=pk)
+            html_message = loader.render_to_string(
+                'email/question_answered.html',
+                {
+                    'user_name': question.user,
+                    'project': project,
+                    'project_url': project.get_url()
+                }
+            )
+            try:
+                send_mail(
+                    subject="Question answered for Project {}!".format(project.title),
+                    message='',
+                    from_email='',
+                    recipient_list=(question.user.email,),
+                    fail_silently=False,
+                    html_message=html_message
+                )
+            except Exception as e:
+                log.exception("Problem sending email: {}".format(e))
+
             return redirect(reverse('project', kwargs={"pk": pk}))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
@@ -351,6 +424,29 @@ def accept_job_offer(request, pk, offer_id):
         offer = JobOffer.objects.get(pk=offer_id)
         offer.accepted = True
         offer.save()
+
+        # Send mail to user
+        project = Project.objects.get(pk=pk)
+        html_message = loader.render_to_string(
+            'email/application_accepted.html',
+            {
+                'user_name': offer.user.username,
+                'project': project,
+                'project_url': project.get_url()
+            }
+        )
+        try:
+            send_mail(
+                subject="Accepted in Project {}!".format(project.title),
+                message='',
+                from_email='',
+                recipient_list=(offer.user.email,),
+                fail_silently=False,
+                html_message=html_message
+            )
+        except Exception as e:
+            log.exception("Problem sending email: {}".format(e))
+
         return redirect(reverse('project', kwargs={"pk": pk}))
 
 @login_required
@@ -386,9 +482,33 @@ def close_project(request, pk):
         project.closed = True
         project.save()
 
-        # Create pending score instances for each coder
-        for accepted_offer in project.joboffer_set.filter(accepted=True):
-            ProjectScore.objects.create(project_id=pk, coder=accepted_offer.user)
+        # Create pending score instances for each accepted coder and send mail to everyone
+        project = Project.objects.get(pk=pk)
+        for offer in project.joboffer_set.filter():
+            if offer.accepted:
+                ProjectScore.objects.create(project_id=pk, coder=offer.user)
+
+            # Send mail to coder
+            html_message = loader.render_to_string(
+                'email/project_closed.html',
+                {
+                    'user_name': offer.user.username,
+                    'project': project,
+                    'scores_url': ProjectScore.get_url(),
+                    'accepted': offer.accepted
+                }
+            )
+            try:
+                send_mail(
+                    subject="Project {} closed!".format(project.title),
+                    message='',
+                    from_email='',
+                    recipient_list=(offer.user.email,),
+                    fail_silently=False,
+                    html_message=html_message
+                )
+            except Exception as e:
+                log.exception("Problem sending email: {}".format(e))
 
         return render(request, 'views/my_projects.html')
 
