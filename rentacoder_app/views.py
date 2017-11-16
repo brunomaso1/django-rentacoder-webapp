@@ -79,7 +79,7 @@ def my_profile(request):
             log.info("Updating user {}".format(request.user.username))
             form.save()
             messages.success(request, 'User updated successfully')
-            return redirect(reverse('views/my_profile.html'))
+            return redirect(reverse('my_profile'))
         else:
             log.error("Invalid form data: {}".format(form.errors.as_json()))
             messages.error(request, 'Invalid form data')
