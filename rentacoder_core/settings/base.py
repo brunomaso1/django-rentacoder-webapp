@@ -133,7 +133,7 @@ LOGGING = {
             'formatter': 'verbose',
         },
         'file': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, LOGGING_FILE_NAME),
         },
@@ -147,7 +147,7 @@ LOGGING = {
     'loggers': {
         'rentacoder_app': {
             'handlers': ['console', 'file', 'mail_admins'],
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': True,
         }
     }
