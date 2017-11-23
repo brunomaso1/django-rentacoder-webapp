@@ -276,6 +276,7 @@ class JobOffer(models.Model):
 
     class Meta:
         db_table = "job_offer"
+        unique_together = (('project', 'user'),)
 
 
 # Once a project starts, accepted JobOffers create a pending Score for both the Owner and the Coder
@@ -288,6 +289,7 @@ class ProjectScore(models.Model):
 
     class Meta:
         db_table = "project_score"
+        unique_together = (('project', 'coder'),)
 
     @staticmethod
     def get_pending_scores_for_user(user):
