@@ -104,7 +104,7 @@ def new_project(request):
         return render(request, 'views/new_project.html', {'form': NewProjectForm()})
     elif request.method == POST:
         # create form from request POST params
-        form = NewProjectForm(request.POST)
+        form = NewProjectForm(request.POST, request.FILES)
 
         # check if the form is valid
         if form.is_valid():

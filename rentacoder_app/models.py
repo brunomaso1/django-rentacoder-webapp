@@ -245,6 +245,7 @@ class Project(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     closed = models.BooleanField(default=False)
+    file = models.FileField(upload_to='files', null=True, blank=True)
     # duration: calculated in days, weeks, months?
 
     class Meta:

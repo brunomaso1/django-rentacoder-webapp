@@ -8,7 +8,8 @@
         <div class="panel panel-primary">
             <div class="panel-heading"><b>New Project</b></div>
             <div class="panel-body">
-                <form class="register_form form-vertical" action="{% url 'new_project' %}" method="POST">
+                <form class="register_form form-vertical" action="{% url 'new_project' %}" method="POST"
+                      enctype="multipart/form-data">
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     {% buttons %}
