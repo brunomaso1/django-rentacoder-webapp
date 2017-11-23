@@ -488,6 +488,9 @@ def close_project(request, pk):
 
         # Create pending score instances for each accepted coder and send mail to everyone
         project = Project.objects.get(pk=pk)
+        if project.closed:
+            return redirect(reverse('project', kwargs={"pk": project.pk}))
+
         for offer in project.joboffer_set.filter():
             if offer.accepted:
                 ProjectScore.objects.create(project_id=pk, coder=offer.user)
@@ -514,7 +517,7 @@ def close_project(request, pk):
             except Exception as e:
                 log.exception("Problem sending email: {}".format(e))
 
-        return render(request, 'views/my_projects.html')
+        return redirect(reverse('project', kwargs={"pk": project.pk}))
 
 
 def score_coder(request, pk):
