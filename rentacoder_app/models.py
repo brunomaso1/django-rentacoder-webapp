@@ -38,7 +38,7 @@ class User(AbstractUser):
         username
         password
     """
-    technologies = models.ManyToManyField('Technology')
+    technologies = models.ManyToManyField('Technology', blank=True)
     avatar = models.ImageField(upload_to='avatars', default=const.DEFAULT_PROFILE_IMAGE_USER)
     email = models.EmailField(unique=True, db_index=True)
     is_active = models.BooleanField(default=False)
