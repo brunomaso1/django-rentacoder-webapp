@@ -488,14 +488,14 @@ def close_project(request, pk):
         log.info("Attempting to close project  {} by user {} - Request: {}".
                  format(pk, request.user, request.POST))
         project = Project.objects.get(pk=pk)
+        if project.closed:
+            log.error("Project already closed, skipping")
+            return redirect(reverse('project', kwargs={"pk": project.pk}))
+
         project.closed = True
         project.save()
 
         # Create pending score instances for each accepted coder and send mail to everyone
-        project = Project.objects.get(pk=pk)
-        if project.closed:
-            return redirect(reverse('project', kwargs={"pk": project.pk}))
-
         for offer in project.joboffer_set.filter():
             if offer.accepted:
                 ProjectScore.objects.create(project_id=pk, coder=offer.user)
