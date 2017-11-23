@@ -6,7 +6,7 @@ from uuid import uuid4
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction, IntegrityError
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.urls import reverse
 from django.utils import timezone
 
@@ -51,6 +51,19 @@ class User(AbstractUser):
         if not self.id and self.is_superuser:
             self.is_active = True
         super(User, self).save(*args, **kwargs)
+
+    def get_coder_score(self):
+        coder_score = "No scores yet"
+        if ProjectScore.objects.filter(coder=self, coder_score__gt=0).exists():
+            coder_score = ProjectScore.objects.filter(coder=self).aggregate(Avg('coder_score')).get('coder_score__avg')
+        return coder_score
+
+    def get_owner_score(self):
+        owner_score = "No scores yet"
+        if ProjectScore.objects.filter(project__user=self, owner_score__gt=0).exists():
+            owner_score = ProjectScore.objects.filter(project__user=self).aggregate(Avg('owner_score')).get(
+                'owner_score__avg')
+        return owner_score
 
     @staticmethod
     def get_user_by_email(email):

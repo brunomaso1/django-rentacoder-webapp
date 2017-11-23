@@ -56,11 +56,18 @@
                                     <label for="Technologies">Technologies:</label>
                                     <div id="Technologies">
                                         {% for tech in profileTechnologies %}
-                                            {{tech}}
+                                            <span class="label label-info">{{ tech }}</span>
                                         {% empty%}
                                         User has no technology.
                                         {% endfor %}
                                     </div>
+
+                                    <div id="Technologies">
+                                        <h3>Average Score</h3>
+                                        <h4>As Coder: <b>{{ average_score_as_coder }}</b></h4>
+                                        <h4>As Project Owner: <b>{{ average_score_as_po }}</b></h4>
+                                    </div>
+
                                     <div class="form-group padding-top-5 bottom-align-text">
                                         {% buttons %}
                                         <div class="col-md-5 col-md-offset-8 ">

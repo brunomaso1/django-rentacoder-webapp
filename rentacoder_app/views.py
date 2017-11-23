@@ -59,7 +59,7 @@ def my_projects(request):
 
     context = {
         "active_projects": active_projects,
-        "closed_projects": closed_projects
+        "closed_projects": closed_projects,
     }
     return render(request, 'views/my_projects.html', context)
 
@@ -70,7 +70,9 @@ def my_profile(request):
     user = request.user
     context = {
         "form": form,
-        "userTechnologies": user.technologies.all()
+        "userTechnologies": user.technologies.all(),
+        "average_score_as_coder": request.user.get_coder_score(),
+        "average_score_as_po": request.user.get_owner_score(),
     }
     if request.method == GET:
         return render(request, 'views/my_profile.html', context)
@@ -90,9 +92,12 @@ def my_profile(request):
 @login_required
 def user_profile(request, pk):
     user = User.objects.get(pk=pk)
+
     context = {
         "profile": user,
-        "profileTechnologies": user.technologies.all()
+        "profileTechnologies": user.technologies.all(),
+        "average_score_as_coder": user.get_coder_score(),
+        "average_score_as_po": user.get_owner_score(),
     }
     return render(request, 'views/user_profile.html', context)
 
