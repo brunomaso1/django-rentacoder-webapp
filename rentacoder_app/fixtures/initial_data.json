@@ -10,14 +10,56 @@
     "model": "rentacoder_app.technology",
     "pk": 2,
     "fields": {
-      "name": "C#"
+      "name": "Backend"
     }
   },
   {
     "model": "rentacoder_app.technology",
     "pk": 3,
     "fields": {
+      "name": "Frontend"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 4,
+    "fields": {
+      "name": "C#"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 5,
+    "fields": {
       "name": "Java"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 5,
+    "fields": {
+      "name": "JavaScript"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 6,
+    "fields": {
+      "name": "C#"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 7,
+    "fields": {
+      "name": ".NET"
+    }
+  },
+  {
+    "model": "rentacoder_app.technology",
+    "pk": 8,
+    "fields": {
+      "name": "Haskell"
     }
   },
   {
