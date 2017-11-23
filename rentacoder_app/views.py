@@ -143,6 +143,11 @@ def project(request, pk):
         "already_applied": job_offers.filter(user=request.user).exists(),
         "accepted": job_offers.filter(user=request.user, accepted=True).exists(),
     }
+    try:
+        if project.file:
+            context["file_name"] = project.file.name.split("files/")[1]
+    except:
+        log.error("Problem getting file '{}'".format(project.file.name))
     return render(request, 'views/project.html', context)
 
 

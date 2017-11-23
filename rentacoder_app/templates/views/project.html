@@ -57,6 +57,13 @@
                         {% endif %}
                     </div>
                 {% endif %}
+
+                {% if file_name %}
+                    <div class="row text-center" align="center">
+                        Attachment: <a href="{{ project.file.url }}" download>{{ file_name }}</a>
+                    </div>
+                {% endif %}
+
                 <div class="row text-center" align="center">
                     <b>Hiring: </b>{{ project.openings }}<br>
                     <b>Available: </b>{{ openings_available }}
